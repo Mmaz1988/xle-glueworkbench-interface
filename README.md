@@ -1,8 +1,9 @@
 # xle-glueworkbench-interface
 Illustrates how the Glue semantics workbench can be called from XLE. 
-The project contains a sample xle grammar that encodes Glue premises in the f-structure
-The folder /src contains prolog procedures that translate the Glue premises in an f-structure to Strings
+The project contains a sample xle grammar that encodes Glue premises in the f-structure.
+The folder /src contains prolog procedures that translate the Glue premises in an f-structure to strings
 that are formatted such that they can be read by the Glue semantics workbench. 
+The file glue.tcl adds a command to the XLE GUI that allows you to run the PROLOG procedures and the Glue semantics workbench and return the result 
 
 # Requirements
 - This project requires an installation of XLE. It is designed to be version independent, but feedback is welcome.
