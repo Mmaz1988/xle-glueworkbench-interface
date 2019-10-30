@@ -58,6 +58,6 @@ parsing {Tracy yawned}
 ```
 The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation. 
 
-
+![alt text](fstructure.png)
 
 
