@@ -13,9 +13,11 @@ Alternatively, contact me for a .jar file of the most recent version of the GSWB
 
 # Running the system
 - Put the GSWB .jar file in the top-level project folder, or specify the path in src/glue.tcl, where "Run Java Glue prover" is written.
+Replace glueSemWorkbench2.jar with some/directory/glueSemWorkbench2.jar 
 
-'''
-    eval exec java [list -jar glueSemWorkbench2.jar \
+```
+	#Run Java Glue prover; jar file relative to execution as above 
+	eval exec java [list -jar glueSemWorkbench2.jar \
 			-i $outputfile -o $displayfile]
-'''
+```
 
