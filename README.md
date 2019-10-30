@@ -1,5 +1,5 @@
 # xle-glueworkbench-interface
-Illustrates how the Glue semantics workbench can be called from XLE. 
+Illustrates how the Glue semantics workbench (GSWB) can be called from XLE. 
 The project contains a sample xle grammar that encodes Glue premises in the f-structure.
 The folder /src contains prolog procedures that translate the Glue premises in an f-structure to strings
 that are formatted such that they can be read by the Glue semantics workbench. 
@@ -20,7 +20,7 @@ Alternatively, the .jar file can be downloaded [HERE](https://ling.sprachwiss.un
 # Running the system
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
 
-- Put the GSWB .jar file in the top-level project folder, or specify the path in src/glue.tcl, where "Run Java Glue prover" is written.
+- Put the glueSemWorkbench2.jar file in the top-level project folder, or specify the path in src/glue.tcl, where "Run Java Glue prover" is written.
 Replace glueSemWorkbench2.jar with some/directory/glueSemWorkbench2.jar 
 
 ```
