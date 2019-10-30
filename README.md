@@ -15,7 +15,7 @@ The file glue.tcl adds a command to the XLE GUI that allows you to run the PROLO
 - Glue semantics workbench .jar file. The best way to get this is by cloning https://github.com/Mmaz1988/GlueSemWorkbench_v2 and 
 producing your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project.
 Alternatively, [here](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). 
-- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) for Mac works with the jar file made available above. 
+- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) for Mac works with the jar file made available above. I appreciate feedback for other platforms.
 
 # Running the system
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
