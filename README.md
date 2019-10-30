@@ -49,7 +49,7 @@ Grammar last modified on Aug 28, 2019 09:30.
 /Users/red_queen/Projects/gluegrammar/xlerc loaded.
 % 
 ```
-If this suceeds you can simply parse sentence as usual in XLE.
+If this suceeds you can simply parse a sentence as usual in XLE.
 
 ```
 % parse "Tracy yawned"
