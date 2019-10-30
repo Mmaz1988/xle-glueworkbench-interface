@@ -5,6 +5,10 @@ The folder /src contains prolog procedures that translate the Glue premises in a
 that are formatted such that they can be read by the Glue semantics workbench. 
 The file glue.tcl adds a command to the XLE GUI that allows you to run the PROLOG procedures and the Glue semantics workbench and return the result.
 
+# WARNING
+The current version is simply a toy example to illustrate how it can be done. 
+The system has been developed with an OS based on UNIX in mind. 
+
 # Requirements
 - This project requires an installation of XLE. It is designed to be version independent, but feedback is welcome.
 - SWI-Prolog (latest stable release should do the trick) is required for translating f-structure premises to premise strings
