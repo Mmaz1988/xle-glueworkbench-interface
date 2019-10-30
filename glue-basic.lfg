@@ -1,0 +1,239 @@
+GLUE   BASIC   CONFIG (1.0)  
+  ROOTCAT   CP.  
+  FILES  .
+  LEXENTRIES   (ENGLISH BASIC).  
+  RULES   (ENGLISH BASIC).
+  TEMPLATES (ENGLISH BASIC) (GLUE BASIC).
+  GOVERNABLERELATIONS    SUBJ OBJ OBJ?+ OBL?+ COMP XCOMP.
+  SEMANTICFUNCTIONS    ADJUNCT TOPIC FOCUS.  
+  NONDISTRIBUTIVES    NUM PERS.
+  EPSILON   e.  
+OPTIMALITYORDER NOGOOD.
+
+----
+
+ENGLISH   BASIC   RULES (1.0)
+
+   CP --> C'.
+
+   C' --> (C) 
+ 	  IP.
+
+   C =   Comp.
+
+   IP --> (NP: (^ SUBJ) = !) 
+ 	  I'.
+
+   I' --> (I)
+ 	  VP.
+
+   I = Aux.
+
+   VP --> V'.
+
+   V' --> (V)
+ 	  (NP: (^ OBJ) = !)
+ 	  (CP: (^ COMP) = !).
+
+
+   NP --> (Det)
+ 	  N'.
+
+   N' --> N.
+
+
+
+----
+
+ENGLISH   BASIC   LEXICON (1.0)
+
+"Complementizer"
+
+  that 	  Comp * (^ COMPFORM) = 'that'.
+
+
+"Nouns"
+
+
+  David   N * @(PROPERNOUN David).
+
+  Chris   N * @(PROPERNOUN Chris).
+
+  Tracy   N * @(PROPERNOUN Tracy).
+
+  man 	  N * @(NOUN0 man).
+
+  woman   N * @(NOUN0 woman).
+
+  book 	  N * @(NOUN0 book).
+
+
+"Determiners"
+
+
+  the 	  Det * @(SPEC the).
+
+  a 	  Det * @(SPEC a).
+
+  every   Det * @(SPEC every).
+  
+
+"Verbs"
+
+  yawns   V * @(VERB-SUBJ yawn)
+	      @VPRES3SG.
+
+  yawned  V * @(VERB-SUBJ yawn)
+	      @VPAST-PASTPART.
+
+  sees 	  V * @(VERB-SUBJ-OBJ see)
+	      @VPRES3SG.
+
+  saw 	  V * @(VERB-SUBJ-OBJ see)
+	      @VPAST.
+
+  thinks  V * @(VERB-SUBJ-COMP think)
+              @COMP-TENSE
+	      @VPRES3SG.
+
+  thought V * @(VERB-SUBJ-COMP think)
+	      @COMP-TENSE
+	      @VPAST-PASTPART.
+
+----
+
+ENGLISH   BASIC   TEMPLATES (1.0)
+
+"Nouns"
+
+   PROPERNOUN(P) = (^ PRED) = 'P'
+	  @(GLUE-PROPERNOUN P).
+
+   NOUN0(P) = (^ PRED) = 'P'
+	  @(GLUE-NOUN0 P).
+
+"Determiners"
+
+   SPEC(Q) = (^ SPEC PRED) = 'Q'
+	  @(GLUE-QUANT-DET Q).
+
+   DEF(V) = (^ DEF) = V.
+
+"Verbs"
+
+   VERB-SUBJ(P) =
+	  (^ PRED) = 'P<(^ SUBJ)>'
+	  @(GLUE-VERB-SUBJ P).
+	  
+   VERB-SUBJ-OBJ(P) =
+	  (^ PRED) = 'P<(^ SUBJ)(^ OBJ)>'
+	  @(GLUE-VERB-SUBJ-OBJ P).
+
+   VERB-SUBJ-COMP(P) =
+	  (^ PRED) = 'P<(^ SUBJ)(^ COMP)>'
+	  @(GLUE-VERB-SUBJ-COMP P).
+
+   COMP-TENSE = (^ COMP TENSE).
+
+   VPRES3SG =
+	  @VPRES
+	  (^ SUBJ INDEX PERS) = 3
+	  (^ SUBJ INDEX NUM) = SG.
+
+   VPAST-PASTPART =
+	  { @VPAST | @VPASTPART }.
+
+   VPRES = (^ VTYPE) = FIN
+	  (^ TENSE) = PRS.
+
+   VPAST = (^ VTYPE) = FIN
+	  (^ TENSE) = PST.
+
+   VPASTPART = (^ VFORM) = PSTPTCP.
+
+----
+
+GLUE   BASIC   TEMPLATES (1.0)
+
+"Templates called by lexical entries"
+
+   GLUE-PROPERNOUN(P) =
+	  @(GLUE-REL0-MC ^ e P).
+
+   GLUE-VERB-SUBJ(P) =
+	  @(GLUE-REL1-MC (^ SUBJ) e ^ t P).
+
+   GLUE-VERB-SUBJ-OBJ(P) =
+	  @(GLUE-REL2-MC (^ SUBJ) e (^ OBJ) e ^ t P).
+
+   GLUE-VERB-SUBJ-COMP(P) =
+	  @(GLUE-REL2-MC (^ SUBJ) e (^ COMP) t ^ t P).
+
+   GLUE-NOUN0(P) = "Meaning constructor for nouns: does not provide a meaning for ^"
+	  @(GLUE-NOUN0-MC P).
+
+   GLUE-QUANT-DET(P) = "Meaning constructor for quantifiers, with embedded implication and quantification over the scope structure"
+	  @(GLUE-QUANT-MC P).
+
+"Templates defining glue structures"
+
+"Zero-arity predicates have a REL, a semantic structure, and a type."
+   GLUE-REL0-MC(FSTR TY P) = 
+	  @(GLUE-SEMSTR FSTR %sstr TY)
+	  @(GLUE-MEANING %sstr P)
+	  %sstr $ (FSTR GLUE).
+
+"Predicates with one or more arguments.  These are the simple
+cases, which do not rely on attributes in the semantic structure. 
+Each argument has a semantic structure and a type."
+   GLUE-REL1-MC(A1 A1TY FSTR TY P) = 
+	  @(GLUE-SEMSTR FSTR %sstr TY)
+	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
+	  @(GLUE-MEANING %sstr P)
+	  %sstr $ (FSTR GLUE).
+	  
+   GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) = 
+	  @(GLUE-SEMSTR FSTR %sstr TY)
+	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
+	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
+	  @(GLUE-MEANING %sstr P)
+	  %sstr $ (FSTR GLUE).
+
+   GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY FSTR TY P) = 
+	  @(GLUE-SEMSTR FSTR %sstr TY)
+	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
+	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
+	  @(GLUE-SEMSTR A3 (%sstr ARG3) A3TY) 
+	  @(GLUE-MEANING %sstr P)
+	  %sstr $ (FSTR GLUE).
+
+"Special template for nouns, which encode a relation between ARG1 (=VAR) and RESTR within ^."
+   GLUE-NOUN0-MC(P) = 
+	  @(GLUE-SEMSTR ^ (%sstr VAR) e) 
+	  @(GLUE-SEMSTR ^ (%sstr RESTR) t) 
+	  @(GLUE-MEANING %sstr P)
+	  %sstr $ (^ GLUE).
+
+"Special template for generalized quantifiers like 'every'."
+   GLUE-QUANT-MC(P) = 
+	  @(GLUE-SEMSTR ^ (%sstr ARG1 VAR) e)
+	  @(GLUE-SEMSTR ^ (%sstr ARG1 RESTR) t)
+	  @(GLUE-SEMSTR ^ (%sstr ARG2 ARG1) e)
+	  @(GLUE-SEMSTR %sstr (%sstr ARG2 ARG2) t) 
+	  @(GLUE-MEANING %sstr P)
+	  %sstr $ (^ GLUE).
+
+"The base definitions.
+GLUE-SEMSTR gives the semantic projection of the input f-structure.
+GLUE-MEANING provides the meaning (left-hand side) of the full meaning constructor."
+
+"SSTR is the semantic structure of the f-structure FSTR. Each semantic structure has a type."
+   GLUE-SEMSTR(FSTR SSTR TY) = 
+	  (SSTR SEMSTR) = FSTR
+	  (SSTR TYPE) = TY.
+
+"The meaning side appears as the value of REL in the outermost semantic structure"
+   GLUE-MEANING(SSTR P) =  
+	  (SSTR REL) = P.
+
+----

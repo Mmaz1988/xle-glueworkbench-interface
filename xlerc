@@ -1,0 +1,43 @@
+#xlerc file for Glue grammar with interface to Java
+#Date: October 30th, 2019
+#Author: Mark-Matthias Zymla
+
+# set timeout lower; amounts are in seconds
+set timeout 15
+
+#For output window
+set semwindowtop 0
+
+#provide window for output
+#stdout not tested
+set semDisplay window
+#set semDisplay stdout
+
+# relpath turns a relative path name into an absolute one
+proc relpath {path} {
+     set home [string trimright [file dirname [info script]] ./]
+     set home [file join [pwd] $home]
+     return [file normalize [file join $home $path]]
+}
+
+#Loads the corresponding Glue tcl file.
+set defaultGlueTCL [relpath src/glue.tcl]
+
+#When working with sicstus-prolog these files have to be loaded.
+#SWI-Prolog version is recommended and supprted
+#set defaultPrologFiles [relpath src/premises]
+#lappend defaultPrologFiles [relpath src/extract_analysis]
+#lappend defaultPrologFiles [relpath src/transfer_glue_premises]
+
+#Here the grammar is loaded 
+set defaultGlueParser [relpath glue-basic.lfg]
+
+# Specify the tmp directory for intermediate files
+set defaultTmpDir /tmp
+
+# Load in Glue specific Tcl/Tk procedures:
+source $defaultGlueTCL
+
+#init-glue is defined in the tcl file.
+# Load in the specified rules:
+init-glue
