@@ -10,7 +10,7 @@ The file glue.tcl adds a command to the XLE GUI that allows you to run the PROLO
 - SWI-Prolog (latest stable release should do the trick) is required for translating f-structure premises to premise strings
 - Glue semantics workbench .jar file. The best way to get this is by cloning https://github.com/Mmaz1988/GlueSemWorkbench_v2 and 
 producing your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project.
-Alternatively, contact me for a .jar file of the most recent version of the GSWB.
+Alternatively, [here](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). 
 
 # Running the system
 - Put the GSWB .jar file in the top-level project folder, or specify the path in src/glue.tcl, where "Run Java Glue prover" is written.
