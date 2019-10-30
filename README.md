@@ -13,6 +13,8 @@ producing your own .jar file. Since the project has been created with IntelliJ, 
 Alternatively, [here](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). 
 
 # Running the system
+- Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. 
+
 - Put the GSWB .jar file in the top-level project folder, or specify the path in src/glue.tcl, where "Run Java Glue prover" is written.
 Replace glueSemWorkbench2.jar with some/directory/glueSemWorkbench2.jar 
 
