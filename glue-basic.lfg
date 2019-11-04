@@ -39,7 +39,8 @@ ENGLISH   BASIC   RULES (1.0)
    NP --> (Det)
  	  N'.
 
-   N' --> N.
+   N' --> (Adj: ! $ (^ ADJ))
+ 	  N.
 
 
 
@@ -66,6 +67,11 @@ ENGLISH   BASIC   LEXICON (1.0)
   woman   N * @(NOUN0 woman).
 
   book 	  N * @(NOUN0 book).
+
+
+"Adjectives"
+
+  interesting Adj * @(ADJ interesting).
 
 
 "Determiners"
@@ -112,12 +118,15 @@ ENGLISH   BASIC   TEMPLATES (1.0)
    NOUN0(P) = (^ PRED) = 'P'
 	  @(GLUE-NOUN0 P).
 
+"Adjectives"
+
+   ADJ(P) = (^ PRED) = 'P'
+	  @(GLUE-ADJ0 P).
+
 "Determiners"
 
    SPEC(Q) = (^ SPEC PRED) = 'Q'
 	  @(GLUE-QUANT-DET Q).
-
-   DEF(V) = (^ DEF) = V.
 
 "Verbs"
 
@@ -169,8 +178,12 @@ GLUE   BASIC   TEMPLATES (1.0)
    GLUE-VERB-SUBJ-COMP(P) =
 	  @(GLUE-REL2-MC (^ SUBJ) e (^ COMP) t ^ t P).
 
-   GLUE-NOUN0(P) = "Meaning constructor for nouns: does not provide a meaning for ^"
+   GLUE-NOUN0(P) = "Meaning constructor for nouns associates the e->t-type meaning with the value of PRED"
 	  @(GLUE-NOUN0-MC P).
+
+   GLUE-ADJ0(P) = "Meaning constructors for adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
+          @(GLUE-ADJ0-MC P)
+	  @(GLUE-ADJ-MODIFIER mod-comb).
 
    GLUE-QUANT-DET(P) = "Meaning constructor for quantifiers, with embedded implication and quantification over the scope structure"
 	  @(GLUE-QUANT-MC P).
@@ -186,19 +199,20 @@ GLUE   BASIC   TEMPLATES (1.0)
 "Predicates with one or more arguments.  These are the simple
 cases, which do not rely on attributes in the semantic structure. 
 Each argument has a semantic structure and a type."
+"1-place predicates"
    GLUE-REL1-MC(A1 A1TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-MEANING %sstr P)
 	  %sstr $ (FSTR GLUE).
-	  
+"2-place predicates"	  
    GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
 	  @(GLUE-MEANING %sstr P)
 	  %sstr $ (FSTR GLUE).
-
+"3-place predicates"
    GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
@@ -207,24 +221,63 @@ Each argument has a semantic structure and a type."
 	  @(GLUE-MEANING %sstr P)
 	  %sstr $ (FSTR GLUE).
 
-"Special template for nouns, which encode a relation between ARG1 (=VAR) and RESTR within ^."
+"Special meaning constructor for nouns, with type
+(^ PRED)_e -o (^ PRED)_t"
    GLUE-NOUN0-MC(P) = 
-	  @(GLUE-SEMSTR ^ (%sstr VAR) e) 
-	  @(GLUE-SEMSTR ^ (%sstr RESTR) t) 
+	  @(GLUE-SEMSTR (^ PRED) %sstr t)
+	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1) e) 
 	  @(GLUE-MEANING %sstr P)
 	  %sstr $ (^ GLUE).
 
-"Special template for generalized quantifiers like 'every'."
-   GLUE-QUANT-MC(P) = 
-	  @(GLUE-SEMSTR ^ (%sstr ARG1 VAR) e)
-	  @(GLUE-SEMSTR ^ (%sstr ARG1 RESTR) t)
-	  @(GLUE-SEMSTR ^ (%sstr ARG2 ARG1) e)
-	  @(GLUE-SEMSTR %sstr (%sstr ARG2 ARG2) t) 
+"Special meaning constructor for basic adjective meanings, with type 
+(^ PRED)_e -o ^_t"
+   GLUE-ADJ0-MC(P) = 
+	  @(GLUE-SEMSTR ^ %sstr t)
+	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1) e) 
 	  @(GLUE-MEANING %sstr P)
 	  %sstr $ (^ GLUE).
+
+"Special meaning constructor to combine basic adjective meanings
+with the nouns they modify, with type
+((^ PRED)_e -o ^_t) -o 
+  ( ((ADJ $ ^) PRED)_e -o ((ADJ $ ^) PRED) -o 
+     ((ADJ $ ^) PRED)_e -o ((ADJ $ ^) PRED))."
+   GLUE-ADJ-MODIFIER(P) =
+     @(GLUE-MODIFIER1 (^ PRED) e ^ t ((ADJ $ ^) PRED) e ((ADJ $ ^) PRED) t P).
+ 
+"General template for one-place modifiers, e.g. adjectives"
+  GLUE-MODIFIER1(MODARG MODARGTY MODRES MODRESTY HEADARG HEADARGTY HEADRES HEADRESTY P) =
+         "Modifier"
+         @(GLUE-SEMSTR MODARG (%sstrm ARG1 ARG1) MODARGTY)
+         @(GLUE-SEMSTR MODRES (%sstrm ARG1) MODRESTY)
+         "Head"
+         @(GLUE-SEMSTR HEADARG (%sstrm ARG2 ARG1) HEADARGTY)
+         @(GLUE-SEMSTR HEADRES (%sstrm ARG2) HEADRESTY)
+	 "Result"
+         @(GLUE-SEMSTR HEADARG (%sstrm ARG3) HEADARGTY)
+         @(GLUE-SEMSTR HEADRES %sstrm HEADRESTY)
+	 @(GLUE-MEANING %sstrm P) 
+	 %sstrm $ (^ GLUE).
+	 
+"Special template for generalized quantifiers like 'every'."
+   GLUE-QUANT-MC(P) =
+          "Restriction: (^ PRED)_e -o (^ PRED)_t"
+	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1 ARG1) e)
+	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1) t)
+	  "Scope argument: ^_e -o ?SCOPE_t"
+	  @(GLUE-SEMSTR ^ (%sstr ARG2 ARG1) e)
+	  @(GLUE-SEMSTR %scope (%sstr ARG2) t)
+	  "Result: ?SCOPE_t"
+	  @(GLUE-SEMSTR %scope %sstr t)
+	  "introduce universal quantifier over scope with FORALL attribute"
+ 	  (%sstr FORALL) = %scope
+          "quantifier meaning"
+	  @(GLUE-MEANING %sstr P)
+	  %sstr $ (^ GLUE).
+
 
 "The base definitions.
-GLUE-SEMSTR gives the semantic projection of the input f-structure.
+GLUE-SEMSTR is a term: an f-structure (standing in for an s-structure) and a type.
 GLUE-MEANING provides the meaning (left-hand side) of the full meaning constructor."
 
 "SSTR is the semantic structure of the f-structure FSTR. Each semantic structure has a type."
