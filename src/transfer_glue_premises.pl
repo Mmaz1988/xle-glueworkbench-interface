@@ -70,44 +70,51 @@ convert_fstr_to_premise(FStr, PremiseID, Premise) :-
     % Find the meaning side.  This will be the value of the REL attribute.
     member(['REL',Meaning], AttrVals),
     % Find the glue side. 
-    find_glue(FStr, AttrVals, Glue),
+    find_glue([], FStr, AttrVals, Glue),
     % Assemble the premise in the form that the prover expects.
     atomics_to_string([Meaning, " : ", Glue], Premise).
 
-find_glue(FStr, AttrVals, Glue) :-
-    % Assemble the glue side of the meaning constructor.  
+% Assemble the glue side of the meaning constructor.  First argument is either the empty set of variables
+% (we are not in the scope of a quantifier binding a variable) or a variable bound by a quantifier,
+% which has to be prefixed with "F".
+find_glue(BoundVars0, FStr, AttrVals, Glue) :-
+    check_for_quant(AttrVals, BoundVar),
+    append(BoundVar, BoundVars0, BoundVars),
     % Assemble the result term from the attributes SEMSTR and TYPE.
-    assemble_term(AttrVals, Result),
+    assemble_term(BoundVars, AttrVals, Result),
     % Check for quantification via the FORALL attribute
-    check_for_quant(AttrVals, Quant),
     % Construct the argument terms.
     msort(AttrVals, AttrValsSorted),
-    find_glue_args(FStr, AttrValsSorted, Args),
-    % Assemble the result
+    find_glue_args(BoundVars, FStr, AttrValsSorted, Args),
+    % Assemble the result.
     assemble_glue_expression(Args, Result, Glue0),
-    % Add quantification over s-structures as a prefix.  Quant is the empty
-    % string if check_for_quant found no quantifier.
-    atomics_to_string([Quant, Glue0], Glue).
+    % Add quantification over the s-structure as a prefix.  Quant is the empty
+    % list if check_for_quant found no quantifier.  If there is a quantified variable, prefix
+    % all occurrences of the variable in the string with "F".
+    add_quant(BoundVar, Glue0, Glue).
 
-% Check for a quantifier over s-structures.  Assume that there is only
-% one of them and that it is of type t.  Assume that the scope might be a PRED value.
-check_for_quant(AttrVals, Quant) :-
+% Check for a quantifier over s-structures.  Assume that the scope might be a PRED value.
+check_for_quant(AttrVals, [var(V)]) :-
     ( member(['FORALL',var(V)], AttrVals);
-      member(['FORALL',semform(_F,V,_A,_NA)], AttrVals) ),
-    atomics_to_string(["A", V, "_t."], Quant);
-    Quant = "".
+      member(['FORALL',semform(_F,V,_A,_NA)], AttrVals) ), !.
+check_for_quant(_AttrVals, []).
 
-find_glue_args(FStr, [[Attr,_]|ArgAttrVals], Args):-
+% Add the quantifier prefix.
+add_quant([], Glue, Glue). % There is no quantifier prefix.
+add_quant([var(V)], Glue0, Glue) :-
+   atomics_to_string(["AF", V, "_t.", Glue0], Glue).
+
+find_glue_args(BoundVars, FStr, [[Attr,_]|ArgAttrVals], Args):-
     % Ignore the REL, SEMSTR, TYPE, and FORALL attributes.  
     member(Attr, ['REL','SEMSTR','TYPE','FORALL']), !,
-    find_glue_args(FStr, ArgAttrVals, Args).
-find_glue_args(FStr, [[_Arg,PremiseID]|ArgAttrVals], [Arg|Args]):-
+    find_glue_args(BoundVars, FStr, ArgAttrVals, Args).
+find_glue_args(BoundVars, FStr, [[_Arg,PremiseID]|ArgAttrVals], [Arg|Args]):-
     % These are the arguments ARG1 through ARGN, already sorted by msort above.
     % Find all of the attributes and values of the f-structure PremiseID.
     bagof([Attr,Val], find_attr(FStr, PremiseID, Attr, Val), AttrVals),
-    find_glue(FStr, AttrVals, Arg), !,
-    find_glue_args(FStr, ArgAttrVals, Args).
-find_glue_args(_FStr, [], []).
+    find_glue(BoundVars, FStr, AttrVals, Arg), !,
+    find_glue_args(BoundVars, FStr, ArgAttrVals, Args).
+find_glue_args(_BoundVars, _FStr, [], []).
 
 % G is the result, and Arg1...ArgN are its arguments.  Put these together into the glue
 % side of a premise.
@@ -117,13 +124,15 @@ assemble_glue_expression([Arg|Args], G, Premise) :-
     atomics_to_string(["(", Arg, " -o ", Premise0, ")"], Premise).
 
 % Assemble a term: the f-structure ID stands in for the semantic structure, and the
-% type is the value of TYPE.
-assemble_term(AttrVals, Term) :-
+% type is the value of TYPE.  If V is a bound variable, prefix "F".
+assemble_term(BoundVars, AttrVals, Term) :-
     % find a glue atom and its type corresponding to PremiseID, create term
     ( member(['SEMSTR',var(V)], AttrVals);
       member(['SEMSTR',semform(_F,V,_A,_NA)], AttrVals) ),
     member(['TYPE',Type], AttrVals),
-    atomics_to_string([V, '_', Type], Term).
+    ( member(var(V), BoundVars), !,  atomics_to_string(['F', V, '_', Type], Term);
+      atomics_to_string([V, '_', Type], Term) ).
+      
 
 % F-structure FID has attributes Attr with value Val. 
 find_attr([cf(_,eq(attr(FID,Attr),Val))|_FStr], FID, Attr, Val).

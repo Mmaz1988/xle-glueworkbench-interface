@@ -88,9 +88,9 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     if {$displaymode == "window"} {
        display-file $displayfile $displaywindow $position
        #Delete temporary files 
-       file delete $prologfile
-       file delete $outputfile
-       file delete $displayfile
+       #file delete $prologfile
+       #file delete $outputfile
+       #file delete $displayfile
        puts "Temporary files are deleted after procedure is completed."
     }
 }
