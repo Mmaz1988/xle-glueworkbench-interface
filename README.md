@@ -5,6 +5,14 @@ The folder /src contains prolog procedures that translate the Glue premises in a
 that are formatted such that they can be read by the Glue semantics workbench. 
 The file glue.tcl adds a command to the XLE GUI that allows you to run the PROLOG procedures and the Glue semantics workbench and return the result.
 
+Confirmed support* for:
+MacOS 10.13.6 (High Sierra) 
+Ubuntu 16.04
+Ubuntu 14.04 
+Windows 7
+
+*Given appropriate SWI-Prolog installation and either Oracle Java 1.8 (or higher) or OpenJDK 13 (or OpenJDK > 8) 
+
 # WARNING
 - The current version is simply a toy example to illustrate how it can be done. 
 - The system has been developed with an OS based on UNIX in mind. I.e. it hasn't been tested for Windows. 
