@@ -11,7 +11,7 @@ The file glue.tcl adds a command to the XLE GUI that allows you to run the PROLO
 
 # Requirements
 - This project requires an installation of XLE. It is designed to be version independent, but feedback is welcome.
-- SWI-Prolog (latest stable release should do the trick) is required for translating f-structure premises to premise strings
+- SWI-Prolog is required for translating f-structure premises to premise strings (The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
 - Glue semantics workbench .jar file. The best way to get this is by cloning https://github.com/Mmaz1988/GlueSemWorkbench_v2 and 
 producing your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project.
 Alternatively, the .jar file can be downloaded [HERE](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). 
