@@ -14,7 +14,7 @@ Confirmed functional* for:
 
 
 
-*Given appropriate SWI-Prolog installation and either Oracle Java 1.8 (or higher) or OpenJDK 13 (or OpenJDK > 8) 
+*Given the requirements are met 
 
 # WARNING
 - The current version is simply a toy example to illustrate how it can be done. 
