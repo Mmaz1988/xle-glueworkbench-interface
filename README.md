@@ -60,9 +60,9 @@ Grammar last modified on Aug 28, 2019 09:30.
 If this suceeds you can simply parse a sentence as usual in XLE.
 
 ```
-% parse "Tracy yawned"
-parsing {Tracy yawned}
-2 solutions, 0.000 CPU seconds, 0.000MB max mem, 24 subtrees unified
+% parse "a man yawned"
+parsing {a man yawned}
+2 solutions, 0.000 CPU seconds, 0.000MB max mem, 26 subtrees unified
 ```
 The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses pseudo-semantics to illustrate the functionality of the workbench.
 
