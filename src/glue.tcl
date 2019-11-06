@@ -58,14 +58,17 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     #For Sicstus Prolog
     #global defaultPrologFiles
 
+
+    file mkdir tmp
+    
     if {$displaymode == "window"} {
-	set displayfile $defaultTmpDir/out_[pid].pl
+	set displayfile tmp/out_[pid].pl
     } else {
 	set displayfile stdout
     }
 
-    set prologfile $defaultTmpDir/default_[pid].pl
-    set outputfile $defaultTmpDir/output_[pid].pl
+    set prologfile tmp/default_[pid].pl
+    set outputfile tmp/output_[pid].pl
 
     print-fs-as-prolog $prologfile $window
 
@@ -88,9 +91,10 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     if {$displaymode == "window"} {
        display-file $displayfile $displaywindow $position
        #Delete temporary files 
-       #file delete $prologfile
-       #file delete $outputfile
-       #file delete $displayfile
+       file delete $prologfile
+       file delete $outputfile
+       file delete $displayfile
+       file delete tmp
        puts "Temporary files are deleted after procedure is completed."
     }
 }
