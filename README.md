@@ -72,4 +72,4 @@ The f-structure window "Commands" menu should now contain an entry called "Seman
 
 # Expected output
 
-![alt text](fstructure.png)
+![alt text](semantics.png)
