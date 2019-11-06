@@ -64,7 +64,7 @@ If this suceeds you can simply parse a sentence as usual in XLE.
 parsing {Tracy yawned}
 2 solutions, 0.000 CPU seconds, 0.000MB max mem, 24 subtrees unified
 ```
-The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation. 
+The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. 
 
 # Command 
 
