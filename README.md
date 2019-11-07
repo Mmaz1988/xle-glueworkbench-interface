@@ -23,6 +23,7 @@ producing your own .jar file. Since the project has been created with IntelliJ, 
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
 - Xerox Linguistics Environment (XLE). It is designed to be version independent, but feedback is welcome.
 
+# Setting up the system
 
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
 
