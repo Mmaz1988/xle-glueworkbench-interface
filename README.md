@@ -1,5 +1,5 @@
 # xle-glueworkbench-interface
-Illustrates how the Glue semantics workbench (GSWB) can be called from XLE. 
+The code presented here illustrates how the Glue semantics workbench (GSWB) can be called from XLE. 
 The project contains a sample xle grammar that encodes Glue premises in the f-structure.
 The folder /src contains prolog procedures that translate the Glue premises in an f-structure to strings
 that are formatted such that they can be read by the Glue semantics workbench. 
@@ -17,12 +17,12 @@ Confirmed functional* for:
 *Given the requirements are met 
 
 # Requirements
-- This project requires an installation of XLE. It is designed to be version independent, but feedback is welcome.
-- SWI-Prolog is required for translating f-structure premises to premise strings (The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
 - Glue semantics workbench .jar file. The best way to get this is by cloning https://github.com/Mmaz1988/GlueSemWorkbench_v2 and 
 producing your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project.
 Alternatively, the .jar file can be downloaded [HERE](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). 
 - The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) for Mac works with the jar file made available above. I appreciate feedback for other platforms.
+- SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
+- Xerox Linguistics Environment (XLE). It is designed to be version independent, but feedback is welcome.
 
 
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
@@ -82,3 +82,6 @@ The f-structure window "Commands" menu should now contain an entry called "Seman
 # Expected output
 
 ![alt text](semantics.png)
+
+# Authors
+This project is joint work between Mark-Matthias Zymla (University of Konstanz) and Mary Dalrymple and Agnieszka Patejuk (Oxford University). The individual files specify the responsible author. 
