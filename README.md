@@ -16,10 +16,6 @@ Confirmed functional* for:
 
 *Given the requirements are met 
 
-# WARNING
-- The current version is simply a toy example to illustrate how it can be done. 
-- This system is developed on MacOS. Please report compatibility issues with other platforms 
-
 # Requirements
 - This project requires an installation of XLE. It is designed to be version independent, but feedback is welcome.
 - SWI-Prolog is required for translating f-structure premises to premise strings (The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
@@ -28,7 +24,7 @@ producing your own .jar file. Since the project has been created with IntelliJ, 
 Alternatively, the .jar file can be downloaded [HERE](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). 
 - The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) for Mac works with the jar file made available above. I appreciate feedback for other platforms.
 
-# Running the system
+
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
 
 - Put the glueSemWorkbench2.jar file in the top-level project folder, or specify the path in src/glue.tcl, where "Run Java Glue prover" is written.
@@ -39,6 +35,8 @@ Replace glueSemWorkbench2.jar with some/directory/glueSemWorkbench2.jar
 	eval exec java [list -jar glueSemWorkbench2.jar \
 			-i $outputfile -o $displayfile]
 ```
+
+# Running the system
 
 The next step is to navigate to the top-level folder of the project via the command line (the top level folder contains the xlerc file). 
 Then simply run XLE. The result should looke something like the following: 
