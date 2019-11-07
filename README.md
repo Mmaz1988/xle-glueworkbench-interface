@@ -41,7 +41,7 @@ some/directory/glueSemWorkbench2.jar
 # Running the system
 
 The next step is to navigate to the top-level folder of the project via the command line (the top level folder contains the xlerc file). 
-Then simply run XLE. The result should looke something like the following: 
+Then simply run XLE. The result should look something like the following: 
 
 ```
 lap0987:gluegrammar red_queen$ xle
@@ -68,7 +68,7 @@ Grammar last modified on Aug 28, 2019 09:30.
 /Users/red_queen/Projects/gluegrammar/xlerc loaded.
 % 
 ```
-If this suceeds you can simply parse a sentence as usual in XLE.
+If this succeeds you can simply parse a sentence as usual in XLE.
 
 ```
 % parse "a man yawned"
