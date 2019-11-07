@@ -85,5 +85,5 @@ The f-structure window "Commands" menu should now contain an entry called "Seman
 
 ![alt text](semantics.png)
 
-# Authors
-This project is joint work between Mary Dalrymple (Oxford University) and Mark-Matthias Zymla (University of Konstanz). The grammar glue-basic.lfg is provided by Mary Dalrymple. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
+# Acknowledgements 
+This project is joint work between Mary Dalrymple and Agnieszka Patejuk (Oxford University) and Mark-Matthias Zymla (University of Konstanz). The grammar glue-basic.lfg is provided by Mary Dalrymple. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
