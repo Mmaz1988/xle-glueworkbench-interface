@@ -17,10 +17,9 @@ Confirmed functional* for:
 *Given the requirements are met 
 
 # Requirements
-- Glue semantics workbench .jar file. The best way to get this is by cloning https://github.com/Mmaz1988/GlueSemWorkbench_v2 and 
-producing your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project.
-Alternatively, the .jar file can be downloaded [HERE](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). 
-- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) for Mac works with the jar file made available above. I appreciate feedback for other platforms.
+- Glue semantics workbench .jar file. The .jar file can be downloaded [HERE](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). Else, by cloning https://github.com/Mmaz1988/GlueSemWorkbench_v2 and 
+producing your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project. 
+- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development. Feedback for other platforms is appreciated.
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
 - Xerox Linguistics Environment (XLE). It is designed to be version independent, but feedback is welcome.
 
