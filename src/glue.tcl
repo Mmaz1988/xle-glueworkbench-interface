@@ -1,7 +1,9 @@
+#.tcl file -- sets up XLE/Glue interface
+#Author: Mark-Matthias Zymla
+#Date: 07.11.2019
 
 ####################################################################
-# Load in Glue rule sets as specified by settings to default* global
-# variables: 
+# Set up Glue menue
 ####################################################################
 
 proc init-glue {{compiled 0}} {
