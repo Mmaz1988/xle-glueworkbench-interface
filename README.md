@@ -1,5 +1,5 @@
 # xle-glueworkbench-interface
-The code presented here illustrates how the Glue semantics workbench (GSWB) can be called from XLE. 
+This code makes it possible to call the Glue semantics workbench (GSWB) from XLE.
 The project contains a sample xle grammar that encodes Glue premises in the f-structure.
 The folder /src contains prolog procedures that translate the Glue premises in an f-structure to strings
 that are formatted such that they can be read by the Glue semantics workbench. 
@@ -11,17 +11,18 @@ Confirmed functional* for:
 - Ubuntu 16.04
 - Ubuntu 14.04 
 - Windows 7
+- Windows 10
 
 
 
 *Given the requirements are met 
 
 # Requirements
-- Glue semantics workbench .jar file. The .jar file can be downloaded [HERE](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). Else, by cloning https://github.com/Mmaz1988/GlueSemWorkbench_v2 and 
-producing your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project. 
-- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development. Feedback for other platforms is appreciated.
+- Glue semantics workbench .jar file. The .jar file can be downloaded [HERE](https://ling.sprachwiss.uni-konstanz.de/pages/home/zymla/glueSemWorkbench2.jar) (Send a reminder if it's not up to date). Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project. 
+- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development of GSWB. GSWB was
+also tested with oracle java 8. Feedback for other platforms is appreciated.
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
-- Xerox Linguistics Environment (XLE). It is designed to be version independent, but feedback is welcome.
+- Xerox Linguistics Environment (XLE). The project is designed to be independent of XLE version, but feedback is welcome.
 
 # Setting up the system
 
@@ -40,7 +41,7 @@ some/directory/glueSemWorkbench2.jar
 
 # Running the system
 
-The next step is to navigate to the top-level folder of the project via the command line (the top level folder contains the xlerc file). 
+The next step is to navigate to the top-level folder of the project via some shell (e.g. Terminal for MacOS, PowerShell for Windows) (the top level folder contains the xlerc file). 
 Then simply run XLE. The result should look something like the following: 
 
 ```
