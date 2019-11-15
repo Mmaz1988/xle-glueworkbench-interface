@@ -183,7 +183,7 @@ GLUE   BASIC   TEMPLATES (1.0)
 
    GLUE-ADJ0(P) = "Meaning constructors for adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
           @(GLUE-ADJ0-MC P)
-	  @(GLUE-ADJ-MODIFIER mod-comb).
+	  @(GLUE-ADJ-MODIFIER `/P`.`/Q`.`/x`.and`(P`(x`)`,Q`(x`)`)).
 
    GLUE-QUANT-DET(P) = "Meaning constructor for quantifiers, with embedded implication and quantification over the scope structure"
 	  @(GLUE-QUANT-MC P).
