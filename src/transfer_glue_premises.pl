@@ -78,31 +78,55 @@ convert_fstr_to_premise(FStr, PremiseID, Premise) :-
 % (we are not in the scope of a quantifier binding a variable) or a variable bound by a quantifier,
 % which has to be prefixed with "F".
 find_glue(BoundVars0, FStr, AttrVals, Glue) :-
-    check_for_quant(AttrVals, BoundVar),
-    append(BoundVar, BoundVars0, BoundVars),
+    % Check for quantification via the FORALL attribute
+    check_for_quant(AttrVals, FStr, BoundVars1),
+    append(BoundVars0, BoundVars1, BoundVars),
     % Assemble the result term from the attributes SEMSTR and TYPE.
     assemble_term(BoundVars, AttrVals, Result),
-    % Check for quantification via the FORALL attribute
-    % Construct the argument terms.
+    % Construct the argument terms.  If the formula is in the scope of
+    % a quantified variable or a set of quantified variables, prefix
+    % all occurrences of the variable(s) in the string with "F".
     msort(AttrVals, AttrValsSorted),
     find_glue_args(BoundVars, FStr, AttrValsSorted, Args),
-    % Assemble the result.
+    % Assemble the result.  
     assemble_glue_expression(Args, Result, Glue0),
-    % Add quantification over the s-structure as a prefix.  Quant is the empty
-    % list if check_for_quant found no quantifier.  If there is a quantified variable, prefix
-    % all occurrences of the variable in the string with "F".
-    add_quant(BoundVar, Glue0, Glue).
+    % Add quantifiers for the values of the FORALL attribute as a
+    % prefix.  Quant is the empty list if check_for_quant found no
+    % quantifier.
+    add_quant(BoundVars1, Glue0, Glue).
 
 % Check for a quantifier over s-structures.  Assume that the scope might be a PRED value.
-check_for_quant(AttrVals, [var(V)]) :-
-    ( member(['FORALL',var(V)], AttrVals);
-      member(['FORALL',semform(_F,V,_A,_NA)], AttrVals) ), !.
-check_for_quant(_AttrVals, []).
+% It is possible for the value of FORALL to be a set.
+check_for_quant(AttrVals, FStr, QuantifiedFstrs) :-
+    member(['FORALL',Val], AttrVals), !, % There are some quantified variables.
+    ( Val = semform(_F,V,_A,_NA), QuantifiedFstrs = [var(V)] ; % The value of FORALL is a PRED value
+      Val = var(V),
+        ( % Collect the IDs of each member of the set value of the
+          % attribute 'FORALL'.
+	    bagof(Member, find_attr(FStr, var(V), member, Member), [M|Members]),
+	    % Check whether each of the VALS is a regular f-structure
+	    % or a PRED, and rewrite the PREDs to var(_) format
+	    normalize([M|Members], QuantifiedFstrs) ; 
+	  % If the user has not made 'FORALL' a set-valued attribute,
+	  % assume that the value of 'FORALL' is a single structure,
+	  % and return the value of the 'FORALL' attribute as a
+	  % single-membered list
+	    QuantifiedFstrs = [var(V)] )).
+check_for_quant(_AttrVals, _FStr, []). % There are no quantifiers.
 
-% Add the quantifier prefix.
-add_quant([], Glue, Glue). % There is no quantifier prefix.
-add_quant([var(V)], Glue0, Glue) :-
-   atomics_to_string(["AF", V, "_t.", Glue0], Glue).
+% Rewrite semantic forms as simple f-structure references.
+normalize([], []).
+normalize([var(V)|Rest0], [var(V)|Rest]) :-
+	      normalize(Rest0, Rest).
+normalize([semform(_F,V,_A,_NA)|Rest0], [var(V)|Rest]) :-
+	      normalize(Rest0, Rest).    
+
+% Add the quantifier prefix.  There may be more than one quantifier, if the value of FORALL
+% is a set.
+add_quant([], Quant, Quant). % There are no quantifiers.
+add_quant([var(V)|Rest], Quant0, Quant) :-
+    atomics_to_string(["AF", V, "_t.", Quant0], Quant1),
+    add_quant(Rest,Quant1,Quant).
 
 find_glue_args(BoundVars, FStr, [[Attr,_]|ArgAttrVals], Args):-
     % Ignore the REL, SEMSTR, TYPE, and FORALL attributes.  
@@ -133,7 +157,6 @@ assemble_term(BoundVars, AttrVals, Term) :-
     ( member(var(V), BoundVars), !,  atomics_to_string(['F', V, '_', Type], Term);
       atomics_to_string([V, '_', Type], Term) ).
       
-
 % F-structure FID has attributes Attr with value Val. 
 find_attr([cf(_,eq(attr(FID,Attr),Val))|_FStr], FID, Attr, Val).
 find_attr([cf(_,in_set(Val,FID))|_FStr], FID, member, Val).
