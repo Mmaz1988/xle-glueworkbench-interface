@@ -91,7 +91,7 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     puts "Generating $displayfile"
     
     if {$displaymode == "window"} {
-       display-file $displayfile $displaywindow $position
+	display-file $displayfile $displaywindow $position {Courir 18}
        #Delete temporary files 
        file delete $prologfile
        file delete $outputfile
