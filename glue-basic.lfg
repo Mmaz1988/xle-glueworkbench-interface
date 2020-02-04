@@ -62,6 +62,8 @@ ENGLISH   BASIC   LEXICON (1.0)
 
   Tracy   N * @(PROPERNOUN Tracy).
 
+  Kim   N * @(PROPERNOUN Kim).
+
   man 	  N * @(NOUN0 man).
 
   woman   N * @(NOUN0 woman).
@@ -109,7 +111,7 @@ ENGLISH   BASIC   LEXICON (1.0)
 	  "introduce universal quantifier over scope with FORALL attribute"
  	  (%sstr FORALL) = %scope
           "quantifier meaning"
-	  @(GLUE-MEANING %sstr (^ SPEC PRED))
+	  @(GLUE-MEANING %sstr every)
 	  %sstr $ (^ GLUE).
 
 
@@ -134,6 +136,12 @@ ENGLISH   BASIC   LEXICON (1.0)
 	      @VPRES3SG.
 
   yawned  V * @(VERB-SUBJ yawn)
+	      @VPAST-PASTPART.
+
+  smiles   V * @(VERB-SUBJ smile)
+	      @VPRES3SG.
+
+  smiled  V * @(VERB-SUBJ smile)
 	      @VPAST-PASTPART.
 
   sees 	  V * @(VERB-SUBJ-OBJ see)
