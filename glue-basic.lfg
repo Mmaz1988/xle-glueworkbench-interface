@@ -12,6 +12,8 @@ OPTIMALITYORDER NOGOOD.
 
 ----
 
+"AVM representations of meaning constructors appear as members of the GLUE set at f-structure."
+
 ENGLISH   BASIC   RULES (1.0)
 
    CP --> C'.
@@ -74,12 +76,6 @@ ENGLISH   BASIC   LEXICON (1.0)
 
 "without decomposition: provides 1 premise"
   everyone1  N * (^ PRED) = 'everyone'
-"  	      	(^ PRED) = 'person'
-  	      	(^ SPEC PRED) = 'every'"
-"		@(GLUE-QUANT-DET Q)"
-"		""Restriction: (^ PRED)_e -o (^ PRED)_t --> removed, because filled""
-	  	@(GLUE-SEMSTR (^ PRED) (%sstr ARG1 ARG1) e)
-	  	@(GLUE-SEMSTR (^ PRED) (%sstr ARG1) t)"
 	  	"Scope argument: ^_e -o ?SCOPE_t: ARG2 --> ARG1"
 	  	@(GLUE-SEMSTR ^ (%sstr ARG1 ARG1) e)
 	  	@(GLUE-SEMSTR %scope (%sstr ARG1) t)
@@ -88,7 +84,7 @@ ENGLISH   BASIC   LEXICON (1.0)
 	  	"introduce universal quantifier over scope with FORALL attribute"
  	  	(%sstr FORALL) = %scope
           	"quantifier meaning"
-	  	@(GLUE-MEANING %sstr `/Q`.every`(person`,Q`))
+	  	@(GLUE-MEANING %sstr `[`/Q`_`<e`,t`>`.every`(person`,Q`)`])
 	  	%sstr $ (^ GLUE).
 
 "decomposed: provides 2 premises"
@@ -255,7 +251,7 @@ Each argument has a semantic structure and a type."
    GLUE-REL1-MC(A1 A1TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
-	  @(GLUE-MEANING %sstr P)
+	  @(GLUE-MEANING %sstr `[`/x`_A1TY`.P`(x`)`])
 	  %sstr $ (FSTR GLUE).
 "2-place predicates"	  
    GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) = 
