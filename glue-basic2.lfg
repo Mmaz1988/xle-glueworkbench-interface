@@ -12,7 +12,7 @@ OPTIMALITYORDER NOGOOD.
 
 ----
 
-"AVM representations of meaning constructors appear as members of the GLUE set at f-structure."
+"AVM representations of meaning constructors appear as members of the GLUE set at f-structure. Like glue-basic.lfg, but the AVM meaning constructors appear at semantic structure."
 
 ENGLISH   BASIC   RULES (1.0)
 
@@ -209,7 +209,7 @@ GLUE   BASIC   TEMPLATES (1.0)
    GLUE-REL0-MC(FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (FSTR GLUE).
+	  %sstr $(s::FSTR GLUE).
 
 "Predicates with one or more arguments.  These are the simple
 cases, which do not rely on attributes in the semantic structure. 
@@ -219,14 +219,14 @@ Each argument has a semantic structure and a type."
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (FSTR GLUE).
+	  %sstr $(s::FSTR GLUE).
 "2-place predicates"	  
    GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (FSTR GLUE).
+	  %sstr $(s::FSTR GLUE).
 "3-place predicates"
    GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
@@ -234,7 +234,7 @@ Each argument has a semantic structure and a type."
 	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
 	  @(GLUE-SEMSTR A3 (%sstr ARG3) A3TY) 
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (FSTR GLUE).
+	  %sstr $(s::FSTR GLUE).
 
 "Special meaning constructor for nouns, with type
 (^ PRED)_e -o (^ PRED)_t.  This template is also used for quantifiers
@@ -244,7 +244,7 @@ from the one used in the quantifier template."
 	  @(GLUE-SEMSTR (^ PRED) (%sstrn ARG1) e) 
 	  @(GLUE-SEMSTR (^ PRED) %sstrn t)
 	  @(GLUE-MEANING %sstrn P)
-	  %sstrn $ (^ GLUE).
+	  %sstrn $ (s::^ GLUE).
 
 "Special meaning constructor for basic adjective meanings, with type 
 (^ PRED)_e -o ^_t"
@@ -252,7 +252,7 @@ from the one used in the quantifier template."
 	  @(GLUE-SEMSTR ^ %sstr t)
 	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1) e) 
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (^ GLUE).
+	  %sstr $ (s::^ GLUE).
 
 "Special meaning constructor to combine basic adjective meanings
 with the nouns they modify, with type
@@ -274,7 +274,7 @@ with the nouns they modify, with type
          @(GLUE-SEMSTR HEADARG (%sstrm ARG3) HEADARGTY)
          @(GLUE-SEMSTR HEADRES %sstrm HEADRESTY)
 	 @(GLUE-MEANING %sstrm P) 
-	 %sstrm $ (^ GLUE).
+	 %sstrm $ (s::^ GLUE).
 	 
 "Special template for generalized quantifiers like 'every'."
    GLUE-QUANT-MC(P) =
@@ -287,18 +287,18 @@ with the nouns they modify, with type
 	  "Result: ?SCOPE_t"
 	  @(GLUE-SEMSTR %scope %sstr t)
 	  "introduce universal quantifier over scope with FORALL attribute"
- 	  (%sstr FORALL) = %scope
+ 	  (%sstr FORALL) = s::%scope
           "quantifier meaning"
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (^ GLUE).
+	  %sstr $ (s::^ GLUE).
 
 "The base definitions.
-GLUE-SEMSTR is a term: an f-structure (standing in for an s-structure) and a type.
+GLUE-SEMSTR is a term: an s-structure and a type.
 GLUE-MEANING provides the meaning (left-hand side) of the full meaning constructor."
 
 "SSTR is the semantic structure of the f-structure FSTR. Each semantic structure has a type."
    GLUE-SEMSTR(FSTR SSTR TY) = 
-	  (SSTR SEMSTR) = FSTR
+	  (SSTR SEMSTR) = s::FSTR
 	  (SSTR TYPE) = TY.
 
 "The meaning side appears as the value of REL in the outermost semantic structure"
