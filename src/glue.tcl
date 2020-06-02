@@ -56,7 +56,8 @@ proc create-glue-menus {} {
 
 proc fsdata-to-premises {displaywindow window displaymode position} {
    
-    global defaultTmpDir
+    global defaultTmpDir semParser
+    
     #For Sicstus Prolog
     #global defaultPrologFiles
 
@@ -84,9 +85,15 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     puts "Generating $outputfile"
 
 
-    #Run Java Glue prover; jar file relative to execution as above 
+    #Run Java Glue prover; jar file relative to execution as above
+
+    if {$semParser == 0} {
     eval exec java [list -jar glueSemWorkbench2.jar \
 			-i $outputfile -o $displayfile]
+    } else {
+	eval exec java [list -jar glueSemWorkbench2.jar \
+			-i $outputfile -o $displayfile -parseSem]
+    }
 
     puts "Generating $displayfile"
     
