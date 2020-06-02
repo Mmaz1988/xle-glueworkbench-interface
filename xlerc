@@ -38,6 +38,9 @@ set defaultTmpDir /tmp
 # Load in Glue specific Tcl/Tk procedures:
 source $defaultGlueTCL
 
+# activate semantic parser (1/0)
+set semParser 1
+
 #init-glue is defined in the tcl file.
 # Load in the specified rules:
 init-glue
