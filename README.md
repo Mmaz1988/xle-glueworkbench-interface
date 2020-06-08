@@ -18,6 +18,7 @@ Confirmed functional* for:
 *Given the requirements are met 
 
 # Requirements
+-Download (clone) this repository to your computer. Once all the requirements listed below are met. Run the XLE from the repository folder.
 - Glue semantics workbench .jar file. It is part of this repository. Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project. 
 - The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development of GSWB. GSWB was
 also tested with oracle java 8. Feedback for other platforms is appreciated.
