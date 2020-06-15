@@ -19,6 +19,8 @@ Confirmed functional* for:
 
 # Relevant content
 
+- XLE+Glue manual:  
+A detailed description of the system expanding on this README. 
 - src/glue.tcl:  
 Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
 - src/extract_analysis.pl:  
@@ -49,7 +51,7 @@ also tested with oracle java 8. Feedback for other platforms is appreciated.
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
 
 
-The project contains a version of the GSWB, however, if you are developing on both the XLE side, as well as the prover side, you can 
+- The project contains a version of the GSWB, however, if you are developing on both the XLE side, as well as the prover side, you can 
 specify the path to your own version of the GSWB in src/glue.tcl, where "Run Java Glue
 prover" is written. Replace glueSemWorkbench2.jar with
 some/directory/glueSemWorkbench2.jar
