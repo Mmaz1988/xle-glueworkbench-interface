@@ -48,8 +48,9 @@ also tested with oracle java 8. Feedback for other platforms is appreciated.
 
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
 
-- Put the glueSemWorkbench2.jar file in the top-level project folder.
-Alternatively, specify the path in src/glue.tcl, where "Run Java Glue
+
+The project contains a version of the GSWB, however, if you are developing on both the XLE side, as well as the prover side, you can 
+specify the path to your own version of the GSWB in src/glue.tcl, where "Run Java Glue
 prover" is written. Replace glueSemWorkbench2.jar with
 some/directory/glueSemWorkbench2.jar
 
