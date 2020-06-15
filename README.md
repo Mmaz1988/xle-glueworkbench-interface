@@ -19,19 +19,19 @@ Confirmed functional* for:
 
 # Relevant content
 
-- src/glue.tcl:
-Adds XLE+Glue functionality to XLE; serves as interface for XLE,Prolog and Java 
-- src/extract_analysis.pl:
+- src/glue.tcl:  
+Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
+- src/extract_analysis.pl:  
 Part of the system that extracts and rewrites glue premises from avms into strings 
-- src/premises.pl: 
+- src/premises.pl:   
 Part of the system that extracts and rewrites glue premises from avms into strings
-- src/transfer_glue_premises.pl: 
+- src/transfer_glue_premises.pl:   
 Part of the system that extracts and rewrites glue premises from avms into strings
-- xlerc:
+- xlerc:  
 For loading the grammar and setting up environment variables for the semantic system
-- glue-basic.lfg:
+- glue-basic.lfg:  
 A simple grammar that encodes glue premises in the f-structure
-- blue-basic-semstr.lfg
+- blue-basic-semstr.lfg  
 A simple grammar that encodes glue premises in the s-structure
 
 # Requirements
