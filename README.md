@@ -17,6 +17,23 @@ Confirmed functional* for:
 
 *Given the requirements are met 
 
+# Relevant content
+
+- src/glue.tcl:
+Adds XLE+Glue functionality to XLE; serves as interface for XLE,Prolog and Java 
+- src/extract_analysis.pl:
+Part of the system that extracts and rewrites glue premises from avms into strings 
+- src/premises.pl: 
+Part of the system that extracts and rewrites glue premises from avms into strings
+- src/transfer_glue_premises.pl: 
+Part of the system that extracts and rewrites glue premises from avms into strings
+- xlerc:
+For loading the grammar and setting up environment variables for the semantic system
+- glue-basic.lfg:
+A simple grammar that encodes glue premises in the f-structure
+- blue-basic-semstr.lfg
+A simple grammar that encodes glue premises in the s-structure
+
 # Requirements
 
 Download (clone) this repository to your computer. Once all the requirements listed below are met, run the XLE from the repository folder.
