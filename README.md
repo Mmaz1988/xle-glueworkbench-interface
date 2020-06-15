@@ -59,6 +59,15 @@ some/directory/glueSemWorkbench2.jar
 			-i $outputfile -o $displayfile]
 ```
 
+- The GSWB allows for activation of semantic parsing by the GSWB. This variable is set in the xlerc file. Simply change the value in the following line of code from 0 to 1.
+
+```
+# activate semantic parser (1/0)
+set semParser 0
+```
+
+
+
 # Running the system
 
 The next step is to navigate to the top-level folder of the project via some shell (e.g. Terminal for MacOS, PowerShell for Windows) (the top level folder contains the xlerc file). 
