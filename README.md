@@ -42,13 +42,13 @@ Download (clone) this repository to your computer. Once all the requirements lis
 - Glue semantics workbench .jar file. It is part of this repository. Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project. 
 - The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development of GSWB. GSWB was
 also tested with oracle java 8. Feedback for other platforms is appreciated.
-- SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system. Currently, there is an issue with the SWI-Prolog website where the download site is marked as dangerous by some browsers).
+- SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system.
 - Xerox Linguistics Environment (XLE). The project is designed to be independent of XLE version, but feedback is welcome.
 - When installing Java and SWI-Prolog make sure, that the respective binaries are added to the $PATH variable. This holds for both windows and unix systems.  
 
 # Setting up the system
 
-- Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file, for example, in .bash_profile. For further assistance refer to the respective documentations.
+- Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file. For further assistance refer to the respective documentations.
 
 
 - The project contains a version of the GSWB, however, if you are developing on both the XLE side, as well as the prover side, you can 
@@ -62,7 +62,7 @@ some/directory/glueSemWorkbench2.jar
 			-i $outputfile -o $displayfile]
 ```
 
-- The GSWB allows for activation of semantic parsing by the GSWB. This variable is set in the xlerc file. Simply change the value in the following line of code from 0 to 1.
+- The GSWB allows for activation of semantic parsing by the GSWB. This variable is set in the xlerc file. FChange the value in the following line of code from 0 to 1.
 
 ```
 # activate semantic parser (1/0)
@@ -73,8 +73,8 @@ set semParser 0
 
 # Running the system
 
-The next step is to navigate to the top-level folder of the project via some shell (e.g. Terminal for MacOS, PowerShell for Windows) (the top level folder contains the xlerc file). 
-Then simply run XLE. The result should look something like the following: 
+The next step is to navigate to the top-level folder of the project (it contains the xlerc file) via some shell (e.g. Terminal for MacOS, PowerShell for Windows).
+Then run XLE. The result should look something like the following: 
 
 ```
 lap0987:gluegrammar red_queen$ xle
@@ -101,18 +101,21 @@ Grammar last modified on Aug 28, 2019 09:30.
 /Users/red_queen/Projects/gluegrammar/xlerc loaded.
 % 
 ```
-If this succeeds you can simply parse a sentence as usual in XLE.
+If this succeeds you can parse a sentence as usual in XLE.
 
 ```
 % parse "a man yawned"
 parsing {a man yawned}
 2 solutions, 0.000 CPU seconds, 0.000MB max mem, 26 subtrees unified
 ```
-The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses pseudo-semantics to illustrate the functionality of the workbench.
+The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
 # Command 
+```
+if {$displaymode == "window"}
+	display-file $displayfile $displaywindow $position {Courir 18}
 
-![alt text](fstructure.png)
+```
 
 # Expected output
 
@@ -123,4 +126,4 @@ To change font or font size, you can change the following piece of code towards 
 ![alt text](change_font.png)
 
 # Acknowledgements 
-This project is joint work between Mary Dalrymple and Agnieszka Patejuk (Oxford University) and Mark-Matthias Zymla (University of Konstanz). The grammar glue-basic.lfg is provided by Mary Dalrymple. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
+This project is joint work between Mary Dalrymple and Agnieszka Patejuk (University of Oxford) and Mark-Matthias Zymla (University of Konstanz). The sample grammars are provided by Mary Dalrymple. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
