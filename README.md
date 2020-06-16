@@ -111,11 +111,7 @@ parsing {a man yawned}
 The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
 # Command 
-```
-if {$displaymode == "window"}
-	display-file $displayfile $displaywindow $position {Courir 18}
-
-```
+![alt text](fstructure.png)
 
 # Expected output
 
@@ -123,7 +119,12 @@ if {$displaymode == "window"}
 
 To change font or font size, you can change the following piece of code towards the end of the glue.tcl file.
 
-![alt text](change_font.png)
+```
+if {$displaymode == "window"}
+	display-file $displayfile $displaywindow $position {Courir 18}
+
+```
+
 
 # Acknowledgements 
 This project is joint work between Mary Dalrymple and Agnieszka Patejuk (University of Oxford) and Mark-Matthias Zymla (University of Konstanz). The sample grammars are provided by Mary Dalrymple. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
