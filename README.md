@@ -19,7 +19,7 @@ Confirmed functional* for:
 
 # Relevant content
 
-- XLE+Glue manual:  
+- Manual_for_XLE_Glue_system.pdf:  
 A detailed description of the system expanding on this README. 
 - src/glue.tcl:  
 Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
