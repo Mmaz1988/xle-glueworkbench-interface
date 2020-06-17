@@ -12,7 +12,11 @@ OPTIMALITYORDER NOGOOD.
 
 ----
 
-"AVM representations of meaning constructors appear as members of the GLUE set at f-structure."
+"AVM representations of meaning constructors appear as members of the
+GLUE set at f-structure.  This grammar differs from glue-basic.lfg in
+that meanings are represented as typed terms of the lambda calculus.
+To use this grammar, you must set the value for the variable semParser
+to 1 in your xlerc file."
 
 ENGLISH   BASIC   RULES (1.0)
 
@@ -181,14 +185,16 @@ GLUE   BASIC   TEMPLATES (1.0)
 
    GLUE-ADJ0(P) = "Meaning constructors for prenominal adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
           @(GLUE-REL1-MC (^ PRED) e ^ t P)
-	  @(GLUE-ADJ-MODIFIER `/M`.`/N`.`/x`.and`(M`(x`)`,N`(x`)`)).
+	  @(GLUE-ADJ-MODIFIER `[`/M`_`<e`,t`>`.`[`/N`_`<e`,t`>`.`[`/x`_e`.and`(M`(x`)`,N`(x`)`)`]`]`]).
 
    GLUE-QUANT-DET(P) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
 	  @(GLUE-QUANT-MC P).
 
 "Templates defining glue structures"
+"Complex meaning expressions must be assembled from their parts using the built-in CONCAT template"
 
 "Zero-arity predicates have a REL, a semantic structure, and a type."
+"At this point (17 June 2020) zero-arity predicates are not associated with a type"
    GLUE-REL0-MC(FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-MEANING %sstr P)
@@ -196,40 +202,53 @@ GLUE   BASIC   TEMPLATES (1.0)
 
 "Predicates with one or more arguments.  These are the simple cases,
 which do not rely on attributes in the semantic structure.  Each
-argument has a semantic structure and a type."
+argument has a semantic structure and a type.  Note that when the
+meaning expression is broken into parts as input to the CONCAT
+template, special characters (including square brackets, the forward
+slash, the comma, and the period) must be preceded by a backquote.
+The underscore (and possibly other characters as well) must be
+preceded by a backquote AND preceded and followed by a space."
 
-"1-place predicates" 
+"1-place predicates: 
+   Representation without quotes for special characters: [/x_A1TY.P(x)]"
    GLUE-REL1-MC(A1 A1TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
-	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
-	  @(GLUE-MEANING %sstr P)
+	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY)
+	  @(CONCAT `[ `/x `_ A1TY `. P `( x `) `] %MEANING)
+	  @(GLUE-MEANING %sstr %MEANING)
 	  %sstr $ (FSTR GLUE).
 
-"2-place predicates"	  
+"2-place predicates: 
+   Representation without quotes for special characters: [/x_A1TY.[/y_A2TY.P(x,y)]]"
    GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
-	  @(GLUE-MEANING %sstr P)
+          @(CONCAT `[ `/ x `_ A1TY `. `[ `/ y `_ A2TY `. P `( x `, y `) `] `] %MEANING)
+	  @(GLUE-MEANING %sstr %MEANING)
 	  %sstr $ (FSTR GLUE).
 
-"3-place predicates"
+"3-place predicates:
+   Representation without quotes for special characters: [/x_A1TY.[/y_A2TY.[/z_A3TY.P(x,y,z)]]]"
    GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
-	  @(GLUE-SEMSTR A3 (%sstr ARG3) A3TY) 
-	  @(GLUE-MEANING %sstr P)
+	  @(GLUE-SEMSTR A3 (%sstr ARG3) A3TY)
+          @(CONCAT `[  `/ x `_ A1TY `.  `[  `/ y `_ A2TY `.  `[  `/ z `_ A3TY `. P `( x `, y `, z `)  `]  `]  `] %MEANING)  
+	  @(GLUE-MEANING %sstr %MEANING)
 	  %sstr $ (FSTR GLUE).
 
 "Special meaning constructor for nouns, with type
 (^ PRED)_e -o (^ PRED)_t.  This template is also used for quantifiers
-like 'everyone', so the local name %sstrn in this template must be different
-from the one used in the quantifier template GLUE-QUANT-MC (%sstr)."
+like 'everyone', so the local names in this template (%sstrn and %MEANINGN)
+must be different from the ones used in the quantifier template GLUE-QUANT-MC
+(%sstr and %MEANING)."
    GLUE-NOUN0-MC(P) = 
 	  @(GLUE-SEMSTR (^ PRED) (%sstrn ARG1) e) 
 	  @(GLUE-SEMSTR (^ PRED) %sstrn t)
-	  @(GLUE-MEANING %sstrn P)
+	  @(CONCAT  `[  `/ x `_ e `. P `( x `)  `]  %MEANINGN)
+  	  @(GLUE-MEANING %sstrn %MEANINGN)
 	  %sstrn $ (^ GLUE).
 
 "Special meaning constructor to combine basic adjective meanings
@@ -254,7 +273,8 @@ with the nouns they modify, with type
 	 @(GLUE-MEANING %sstrm P) 
 	 %sstrm $ (^ GLUE).
 	 
-"Special template for generalized quantifiers like 'every'."
+"Special template for generalized quantifiers like 'every'.
+   Representation without quotes for special characters: [/R_<e,t>.[/S_<e,t>.P(R,S)]]"
    GLUE-QUANT-MC(P) =
           "Restriction: (^ PRED)_e -o (^ PRED)_t"
 	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1 ARG1) e)
@@ -267,8 +287,9 @@ with the nouns they modify, with type
 	  "introduce universal quantifier over scope with FORALL attribute"
  	  (%sstr FORALL) = %scope
           "quantifier meaning"
-	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (^ GLUE).
+   	  @(CONCAT `[ `/ R `_ `< e `, t `> `. `[ `/ S `_ `< e `, t `> `. P `( R `, S `) `] `] %MEANING)
+ 	  @(GLUE-MEANING %sstr %MEANING)
+ 	  %sstr $ (^ GLUE). 
 
 "The base definitions.
 GLUE-SEMSTR is a term: an f-structure (standing in for an s-structure) and a type.

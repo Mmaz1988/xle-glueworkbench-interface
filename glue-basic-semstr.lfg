@@ -12,7 +12,10 @@ OPTIMALITYORDER NOGOOD.
 
 ----
 
-"AVM representations of meaning constructors appear as members of the GLUE set at f-structure. Like glue-basic.lfg, but the AVM meaning constructors appear at semantic structure."
+"This grammar is the same as glue-basic.lfg except that meaning constructors appear at s-structure
+rather than f-structure.  This requires a few changes to the GLUE BASIC templates. The names of the arguments
+to the templates (e.g. FSTR) have not been changed, since doing this will obscure the similarities between
+this grammar and glue-basic.lfg."
 
 ENGLISH   BASIC   RULES (1.0)
 
@@ -35,16 +38,14 @@ ENGLISH   BASIC   RULES (1.0)
 
    V' --> (V)
  	  (NP: (^ OBJ) = !)
+ 	  (NP: (^ OBJ-TH) = !)
  	  (CP: (^ COMP) = !).
-
 
    NP --> (Det)
  	  N'.
 
    N' --> (Adj: ! $ (^ ADJ))
  	  N.
-
-
 
 ----
 
@@ -54,9 +55,7 @@ ENGLISH   BASIC   LEXICON (1.0)
 
   that 	  Comp * (^ COMPFORM) = 'that'.
 
-
 "Nouns"
-
 
   David   N * @(PROPERNOUN David).
 
@@ -80,9 +79,7 @@ ENGLISH   BASIC   LEXICON (1.0)
 
   interesting Adj * @(ADJ interesting).
 
-
 "Determiners"
-
 
   the 	  Det * @(SPEC the).
 
@@ -93,30 +90,20 @@ ENGLISH   BASIC   LEXICON (1.0)
 
 "Verbs"
 
-  yawns   V * @(VERB-SUBJ yawn)
-	      @VPRES3SG.
-
   yawned  V * @(VERB-SUBJ yawn)
 	      @VPAST.
-
-  smiles   V * @(VERB-SUBJ smile)
-	      @VPRES3SG.
 
   smiled  V * @(VERB-SUBJ smile)
 	      @VPAST.
 
-  sees 	  V * @(VERB-SUBJ-OBJ see)
-	      @VPRES3SG.
-
   saw 	  V * @(VERB-SUBJ-OBJ see)
 	      @VPAST.
 
-  thinks  V * @(VERB-SUBJ-COMP think)
-              @COMP-TENSE
-	      @VPRES3SG.
-
   thought V * @(VERB-SUBJ-COMP think)
 	      @COMP-TENSE
+	      @VPAST.
+
+  gave 	  V * @(VERB-SUBJ-OBJ-OBJTH give)
 	      @VPAST.
 
 ----
@@ -162,15 +149,11 @@ determiners and the template for common nouns."
 	  (^ PRED) = 'P<(^ SUBJ)(^ COMP)>'
 	  @(GLUE-VERB-SUBJ-COMP P).
 
+   VERB-SUBJ-OBJ-OBJTH(P) =
+	  (^ PRED) = 'P<(^ SUBJ)(^ OBJ)(^ OBJ-TH)>'
+	  @(GLUE-VERB-SUBJ-OBJ-OBJTH P).
+
    COMP-TENSE = (^ COMP TENSE).
-
-   VPRES3SG =
-	  @VPRES
-	  (^ SUBJ INDEX PERS) = 3
-	  (^ SUBJ INDEX NUM) = SG.
-
-   VPRES = (^ VTYPE) = FIN
-	  (^ TENSE) = PRS.
 
    VPAST = (^ VTYPE) = FIN
 	  (^ TENSE) = PST.
@@ -190,15 +173,18 @@ GLUE   BASIC   TEMPLATES (1.0)
    GLUE-VERB-SUBJ-OBJ(P) =
 	  @(GLUE-REL2-MC (^ SUBJ) e (^ OBJ) e ^ t P).
 
+   GLUE-VERB-SUBJ-OBJ-OBJTH(P) =
+	  @(GLUE-REL3-MC (^ SUBJ) e (^ OBJ) e (^ OBJ-TH) e ^ t P).
+
    GLUE-VERB-SUBJ-COMP(P) =
 	  @(GLUE-REL2-MC (^ SUBJ) e (^ COMP) t ^ t P).
 
    GLUE-NOUN0(P) = "Meaning constructor for nouns associates the e->t-type meaning with the value of PRED"
 	  @(GLUE-NOUN0-MC P).
 
-   GLUE-ADJ0(P) = "Meaning constructors for adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
-          @(GLUE-ADJ0-MC P)
-	  @(GLUE-ADJ-MODIFIER `/P`.`/Q`.`/x`.and`(P`(x`)`,Q`(x`)`)).
+   GLUE-ADJ0(P) = "Meaning constructors for prenominal adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
+          @(GLUE-REL1-MC (^ PRED) e ^ t P)
+	  @(GLUE-ADJ-MODIFIER `/M`.`/N`.`/x`.and`(M`(x`)`,N`(x`)`)).
 
    GLUE-QUANT-DET(P) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
 	  @(GLUE-QUANT-MC P).
@@ -209,24 +195,27 @@ GLUE   BASIC   TEMPLATES (1.0)
    GLUE-REL0-MC(FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $(s::FSTR GLUE).
+	  %sstr $ (s::FSTR GLUE).
 
-"Predicates with one or more arguments.  These are the simple
-cases, which do not rely on attributes in the semantic structure. 
-Each argument has a semantic structure and a type."
-"1-place predicates"
+"Predicates with one or more arguments.  These are the simple cases,
+which do not rely on attributes in the semantic structure.  Each
+argument has a semantic structure and a type."
+
+"1-place predicates" 
    GLUE-REL1-MC(A1 A1TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $(s::FSTR GLUE).
+	  %sstr $ (s::FSTR GLUE).
+
 "2-place predicates"	  
    GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
 	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $(s::FSTR GLUE).
+	  %sstr $ (s::FSTR GLUE).
+
 "3-place predicates"
    GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
@@ -234,25 +223,17 @@ Each argument has a semantic structure and a type."
 	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
 	  @(GLUE-SEMSTR A3 (%sstr ARG3) A3TY) 
 	  @(GLUE-MEANING %sstr P)
-	  %sstr $(s::FSTR GLUE).
+	  %sstr $ (s::FSTR GLUE).
 
 "Special meaning constructor for nouns, with type
 (^ PRED)_e -o (^ PRED)_t.  This template is also used for quantifiers
 like 'everyone', so the local name %sstrn in this template must be different
-from the one used in the quantifier template."
+from the one used in the quantifier template GLUE-QUANT-MC (%sstr)."
    GLUE-NOUN0-MC(P) = 
 	  @(GLUE-SEMSTR (^ PRED) (%sstrn ARG1) e) 
 	  @(GLUE-SEMSTR (^ PRED) %sstrn t)
 	  @(GLUE-MEANING %sstrn P)
 	  %sstrn $ (s::^ GLUE).
-
-"Special meaning constructor for basic adjective meanings, with type 
-(^ PRED)_e -o ^_t"
-   GLUE-ADJ0-MC(P) = 
-	  @(GLUE-SEMSTR ^ %sstr t)
-	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1) e) 
-	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (s::^ GLUE).
 
 "Special meaning constructor to combine basic adjective meanings
 with the nouns they modify, with type
@@ -293,7 +274,7 @@ with the nouns they modify, with type
 	  %sstr $ (s::^ GLUE).
 
 "The base definitions.
-GLUE-SEMSTR is a term: an s-structure and a type.
+GLUE-SEMSTR is a term: an f-structure (standing in for an s-structure) and a type.
 GLUE-MEANING provides the meaning (left-hand side) of the full meaning constructor."
 
 "SSTR is the semantic structure of the f-structure FSTR. Each semantic structure has a type."
