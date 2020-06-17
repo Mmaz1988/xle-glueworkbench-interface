@@ -33,8 +33,10 @@ Part of the system that extracts and rewrites glue premises from avms into strin
 For loading the grammar and setting up environment variables for the semantic system
 - glue-basic.lfg:  
 A simple grammar that encodes glue premises in the f-structure
-- blue-basic-semstr.lfg  
+- glue-basic-semstr.lfg  
 A simple grammar that encodes glue premises in the s-structure
+- glue-basic-semparser.lfg 
+A simple grammar that makes use of the semantic parser functionality of the GSWB (treat this as a grammar in development)
 
 # Requirements
 
