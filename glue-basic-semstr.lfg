@@ -191,7 +191,7 @@ GLUE   BASIC   TEMPLATES (1.0)
 
 "Templates defining glue structures"
 
-"Zero-arity predicates have a REL, a semantic structure, and a type."
+"Zero-arity predicates have an MR, a semantic structure, and a type."
    GLUE-REL0-MC(FSTR TY P) = 
 	  @(GLUE-SEMSTR FSTR %sstr TY)
 	  @(GLUE-MEANING %sstr P)
@@ -282,8 +282,8 @@ GLUE-MEANING provides the meaning (left-hand side) of the full meaning construct
 	  (SSTR SEMSTR) = s::FSTR
 	  (SSTR TYPE) = TY.
 
-"The meaning side appears as the value of REL in the outermost semantic structure"
+"The meaning side appears as the value of MR in the outermost semantic structure"
    GLUE-MEANING(SSTR P) =  
-	  (SSTR REL) = P.
+	  (SSTR MR) = P.
 
 ----
