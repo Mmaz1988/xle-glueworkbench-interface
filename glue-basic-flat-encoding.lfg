@@ -1,0 +1,328 @@
+GLUE   BASIC   CONFIG (1.0)  
+  ROOTCAT   CP.  
+  FILES  .
+  LEXENTRIES   (ENGLISH BASIC).  
+  RULES   (ENGLISH BASIC).
+  TEMPLATES (ENGLISH BASIC) (GLUE BASIC).
+  GOVERNABLERELATIONS    SUBJ OBJ OBJ?+ OBL?+ COMP XCOMP.
+  SEMANTICFUNCTIONS    ADJUNCT TOPIC FOCUS.  
+  NONDISTRIBUTIVES    NUM PERS.
+  EPSILON   e.  
+OPTIMALITYORDER NOGOOD.
+
+----
+
+"AVM representations of meaning constructors appear as members of the GLUE set at f-structure."
+
+ENGLISH   BASIC   RULES (1.0)
+
+   CP --> C'.
+
+   C' --> (C) 
+ 	  IP.
+
+   C =   Comp.
+
+   IP --> (NP: (^ SUBJ) = !) 
+ 	  I'.
+
+   I' --> (I)
+ 	  VP.
+
+   I = Aux.
+
+   VP --> V'.
+
+   V' --> (V)
+ 	  (NP: (^ OBJ) = !)
+ 	  (NP: (^ OBJ-TH) = !)
+ 	  (CP: (^ COMP) = !).
+
+   NP --> (Det)
+ 	  N'.
+
+   N' --> (Adj: ! $ (^ ADJ))
+ 	  N.
+
+----
+
+ENGLISH   BASIC   LEXICON (1.0)
+
+"Complementizer"
+
+  that 	  Comp * (^ COMPFORM) = 'that'.
+
+"Nouns"
+
+  David   N * @(PROPERNOUN David).
+
+  Chris   N * @(PROPERNOUN Chris).
+
+  Tracy   N * @(PROPERNOUN Tracy).
+
+  Kim   N * @(PROPERNOUN Kim).
+
+  man 	  N * @(NOUN0 man).
+
+  woman   N * @(NOUN0 woman).
+
+  book 	  N * @(NOUN0 book).
+
+  person  N * @(NOUN0 person).
+
+  everyone N * @(QUANT everyone every person).
+
+"Adjectives"
+
+  interesting Adj * @(ADJ interesting).
+
+"Determiners"
+
+  the 	  Det * @(SPEC the).
+
+  a 	  Det * @(SPEC a).
+
+  every   Det * @(SPEC every).
+  
+
+"Verbs"
+
+  yawned  V * @(VERB-SUBJ yawn)
+	      @VPAST.
+
+  smiled  V * @(VERB-SUBJ smile)
+	      @VPAST.
+
+  saw 	  V * @(VERB-SUBJ-OBJ see)
+	      @VPAST.
+
+  thought V * @(VERB-SUBJ-COMP think)
+	      @COMP-TENSE
+	      @VPAST.
+
+  gave 	  V * @(VERB-SUBJ-OBJ-OBJTH give)
+	      @VPAST.
+
+----
+
+ENGLISH   BASIC   TEMPLATES (1.0)
+
+"Nouns"
+
+   PROPERNOUN(P) = (^ PRED) = 'P'
+	  @(GLUE-PROPERNOUN P).
+
+   NOUN0(P) = (^ PRED) = 'P'
+	  @(GLUE-NOUN0 P).
+
+"Quantifiers like 'everyone' call the template for quantificational 
+determiners and the template for common nouns."
+
+   QUANT(P Q N) = (^ PRED) = 'P'
+          @(GLUE-QUANT-MC Q)
+          @(GLUE-NOUN0-MC N).
+
+"Adjectives"
+
+   ADJ(P) = (^ PRED) = 'P'
+	  @(GLUE-ADJ0 P).
+
+"Determiners"
+
+   SPEC(Q) = (^ SPEC PRED) = 'Q'
+	  @(GLUE-QUANT-DET Q).
+
+"Verbs"
+
+   VERB-SUBJ(P) =
+	  (^ PRED) = 'P<(^ SUBJ)>'
+	  @(GLUE-VERB-SUBJ P).
+	  
+   VERB-SUBJ-OBJ(P) =
+	  (^ PRED) = 'P<(^ SUBJ)(^ OBJ)>'
+	  @(GLUE-VERB-SUBJ-OBJ P).
+
+   VERB-SUBJ-COMP(P) =
+	  (^ PRED) = 'P<(^ SUBJ)(^ COMP)>'
+	  @(GLUE-VERB-SUBJ-COMP P).
+
+   VERB-SUBJ-OBJ-OBJTH(P) =
+	  (^ PRED) = 'P<(^ SUBJ)(^ OBJ)(^ OBJ-TH)>'
+	  @(GLUE-VERB-SUBJ-OBJ-OBJTH P).
+
+   COMP-TENSE = (^ COMP TENSE).
+
+   VPAST = (^ VTYPE) = FIN
+	  (^ TENSE) = PST.
+
+----
+
+GLUE   BASIC   TEMPLATES (1.0)
+
+"Templates called by lexical entries"
+
+   GLUE-PROPERNOUN(P) =
+	  @(GLUE-REL0-MC ^ e P).
+
+   GLUE-VERB-SUBJ(P) =
+	  @(GLUE-REL1-MC (^ SUBJ) e ^ t P).
+
+   GLUE-VERB-SUBJ-OBJ(P) =
+	  @(GLUE-REL2-MC (^ SUBJ) e (^ OBJ) e ^ t P).
+
+   GLUE-VERB-SUBJ-OBJ-OBJTH(P) =
+	  @(GLUE-REL3-MC (^ SUBJ) e (^ OBJ) e (^ OBJ-TH) e ^ t P).
+
+   GLUE-VERB-SUBJ-COMP(P) =
+	  @(GLUE-REL2-MC (^ SUBJ) e (^ COMP) t ^ t P).
+
+   GLUE-NOUN0(P) = "Meaning constructor for nouns associates the e->t-type meaning with the value of PRED"
+	  @(GLUE-NOUN0-MC P).
+
+   GLUE-ADJ0(P) = "Meaning constructors for prenominal adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
+          @(GLUE-REL1-MC (^ PRED) e ^ t P)
+	  @(GLUE-ADJ-MODIFIER `/M`.`/N`.`/x`.and`(M`(x`)`,N`(x`)`)).
+
+   GLUE-QUANT-DET(P) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
+	  @(GLUE-QUANT-MC P).
+
+"Templates defining glue structures"
+
+"Zero-arity predicates."
+   GLUE-REL0-MC(FSTR TY P) = 
+	  (%sstr A1) = P
+	  (%sstr A2) = `:
+	  (%sstr A3) = FSTR
+	  (%sstr A4) = _
+	  (%sstr A5) = TY
+	  %sstr $ (FSTR GLUE).
+
+"Predicates with one or more arguments.  These are the simple cases,
+which do not rely on attributes in the semantic structure.  Each
+argument has a semantic structure and a type."
+
+"1-place predicates" 
+   GLUE-REL1-MC(A1 A1TY FSTR TY P) =
+      	  (%sstr ARG01) = P
+	  (%sstr ARG02) = `:`(
+	  (%sstr ARG03) = A1
+	  (%sstr ARG04) = _
+	  (%sstr ARG05) = A1TY
+	  (%sstr ARG06) = `-o
+	  (%sstr ARG07) = FSTR
+	  (%sstr ARG08) = _
+	  (%sstr ARG09) = TY
+	  (%sstr ARG10) = `)
+	  %sstr $ (FSTR GLUE).
+
+"2-place predicates"	  
+   GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) =
+          (%sstr ARG01) = P
+	  (%sstr ARG02) = `:`(
+	  (%sstr ARG03) = A1
+	  (%sstr ARG04) = _
+	  (%sstr ARG05) = A1TY
+	  (%sstr ARG06) = `-o`(
+	  (%sstr ARG07) = A2
+	  (%sstr ARG08) = _
+	  (%sstr ARG09) = A2TY
+	  (%sstr ARG10) = `-o
+	  (%sstr ARG11) = FSTR
+	  (%sstr ARG12) = _
+	  (%sstr ARG13) = TY
+	  (%sstr ARG14) = `)`)
+	  %sstr $ (FSTR GLUE).
+
+"3-place predicates"
+   GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY FSTR TY P) = 
+          (%sstr ARG01) = P
+	  (%sstr ARG02) = `:`(
+	  (%sstr ARG03) = A1
+	  (%sstr ARG04) = _
+	  (%sstr ARG05) = A1TY
+	  (%sstr ARG06) = `-o`(
+	  (%sstr ARG07) = A2
+	  (%sstr ARG08) = _
+	  (%sstr ARG09) = A2TY
+	  (%sstr ARG10) = `-o`(
+	  (%sstr ARG11) = A3
+	  (%sstr ARG12) = _
+	  (%sstr ARG13) = A3TY
+	  (%sstr ARG14) = `-o
+	  (%sstr ARG15) = FSTR
+	  (%sstr ARG16) = _
+	  (%sstr ARG17) = TY
+	  (%sstr ARG18) = `)`)`)
+	  %sstr $ (FSTR GLUE).
+
+"Special meaning constructor for nouns, with type
+(^ PRED)_e -o (^ PRED)_t.  This template is also used for quantifiers
+like 'everyone', so the local name %sstrn in this template must be different
+from the one used in the quantifier template GLUE-QUANT-MC (%sstr)."
+   GLUE-NOUN0-MC(P) =
+          (%sstrn ARG01) = P
+	  (%sstrn ARG02) = `:`(
+	  (%sstrn ARG03) = (^ PRED)
+	  (%sstrn ARG04) = _e`-o
+	  (%sstrn ARG05) = (^ PRED)
+	  (%sstrn ARG06) = _t`)
+	  %sstrn $ (^ GLUE).
+
+" Special meaning constructor (encoded in the embedded format) 
+to combine basic adjective meanings 
+with the nouns they modify, with type
+((^ PRED)_e -o ^_t) -o 
+ ( ((ADJ $ ^) PRED)_e -o ((ADJ $ ^) PRED) -o 
+ ((ADJ $ ^) PRED)_e -o ((ADJ $ ^) PRED)). 
+It is possible to combine different premise encodings (embedded 
+and string-based) in the same grammar."
+   GLUE-ADJ-MODIFIER(P) =
+	  @(GLUE-MODIFIER1 (^ PRED) e ^ t ((ADJ $ ^) PRED) e ((ADJ $ ^) PRED) t P).
+ 
+"General template for one-place modifiers, e.g. adjectives"
+  GLUE-MODIFIER1(MODARG MODARGTY MODRES MODRESTY HEADARG HEADARGTY HEADRES HEADRESTY P) =
+         "Modifier"
+         @(GLUE-SEMSTR MODARG (%sstrm ARG1 ARG1) MODARGTY)
+         @(GLUE-SEMSTR MODRES (%sstrm ARG1) MODRESTY)
+         "Head"
+         @(GLUE-SEMSTR HEADARG (%sstrm ARG2 ARG1) HEADARGTY)
+         @(GLUE-SEMSTR HEADRES (%sstrm ARG2) HEADRESTY)
+	 "Result"
+         @(GLUE-SEMSTR HEADARG (%sstrm ARG3) HEADARGTY)
+         @(GLUE-SEMSTR HEADRES %sstrm HEADRESTY)
+	 @(GLUE-MEANING %sstrm P) 
+	 %sstrm $ (^ GLUE).
+	 
+"Special template for generalized quantifiers like 'every'."
+"P: (((^ PRED)_e -o (^ PRED)_t) -o AF%scope_t.((^_e -o F%scope_t) -o F%scope_t))"
+   GLUE-QUANT-MC(P) =
+          (%sstr ARG01) = P
+	  (%sstr ARG02) = `:`(`(
+	  (%sstr ARG03) = (^ PRED)
+	  (%sstr ARG04) = `_e`-o
+	  (%sstr ARG05) = (^ PRED)
+	  (%sstr ARG06) = `_t`)`-oAF
+	  (%sstr ARG07) = %scope
+	  (%sstr ARG08) = `_t`.`(`(
+	  (%sstr ARG09) = ^
+	  (%sstr ARG10) = `_e`-oF
+	  (%sstr ARG11) = %scope
+	  (%sstr ARG12) = `_t`)`-oF
+	  (%sstr ARG13) = %scope
+	  (%sstr ARG14) = `_t`)`)
+	  %sstr $ (^ GLUE).
+
+"The base definitions for the embedded encoding.
+GLUE-SEMSTR is a term: an f-structure (standing in for an s-structure) and a type.
+GLUE-MEANING provides the meaning (left-hand side) of the full meaning constructor."
+
+"SSTR is the semantic structure of the f-structure FSTR. Each semantic structure has a type."
+   GLUE-SEMSTR(FSTR SSTR TY) = 
+	  (SSTR SEMSTR) = FSTR
+	  (SSTR TYPE) = TY.
+
+"The meaning side appears as the value of MR in the outermost semantic structure"
+   GLUE-MEANING(SSTR P) =  
+	  (SSTR MR) = P.
+
+----

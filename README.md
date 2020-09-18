@@ -37,6 +37,8 @@ A simple grammar that encodes glue premises in the f-structure
 A simple grammar that encodes glue premises in the s-structure
 - glue-basic-semparser.lfg:   
 A simple grammar that makes use of the semantic parser functionality of the GSWB (treat this as a grammar in development)
+- glue-basic-flat-encoding.lfg:    
+A simple grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
 
 # Requirements
 
