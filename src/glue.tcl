@@ -7,7 +7,7 @@
 ####################################################################
 
 proc init-glue {{compiled 0}} {
-    global defaultGlueParser
+    global defaultGlueParser semParser transferDebug
     #global defaultPrologFiles 
 
     #Create parser
@@ -18,7 +18,14 @@ proc init-glue {{compiled 0}} {
     #COmment in when working with Sicstus-Prolog; not recommended    
     #foreach prologFile $defaultPrologFiles {
     #prolog "load_files('$prologFile')."}
-    
+
+
+    if {$semParser == 1} {
+	puts "Semantic parser is active."
+    }
+    if {$transferDebug == 1} {
+	puts "Debug mode is active." 
+    }
 }
 
 ####################################################################
@@ -56,55 +63,151 @@ proc create-glue-menus {} {
 
 proc fsdata-to-premises {displaywindow window displaymode position} {
    
-    global defaultTmpDir semParser
+    global defaultTmpDir semParser transferDebug processDRT
     
     #For Sicstus Prolog
     #global defaultPrologFiles
 
 
+    file delete -force tmp
+   
     file mkdir tmp
+
+    set gswbfile tmp/gswb_[pid].pl	
     
     if {$displaymode == "window"} {
-	set displayfile tmp/out_[pid].pl
+	set displayfile tmp/display_[pid].pl
     } else {
 	set displayfile stdout
     }
 
+    #Currently processed f-structure
     set prologfile tmp/default_[pid].pl
-    set outputfile tmp/output_[pid].pl
+    #Output of the transfer component
+    set outputfile tmp/transferOutput_[pid].pl
 
     print-fs-as-prolog $prologfile $window
 
-    puts "Generating $prologfile"
+  
+        if {$transferDebug == 1} {
+	    puts "#### Prolog F-structure: $prologfile ####"
+	    puts \n 
+	set fp [open $prologfile]
+	set data [read $fp]
+
+	puts $data
+	puts "+------------------------------------------+"
+        close $fp
+        } else {
+	   puts "Generating $prologfile"
+	}
 
     #Put path of prolog file relative to where tcl command is executed
-    #Nnot where tcl command is stored. 
+    #Not where tcl command is stored. 
     exec swipl -q -f  src/premises.pl -t "main." -- \
 	"$prologfile" "$outputfile"
 
-    puts "Generating $outputfile"
+    
+    if {$transferDebug == 1} {
+	puts "#### Output of the Prolog Transfer System: $outputfile ####"
+	puts \n
+	set fp [open $outputfile]
+	set data [read $fp]
 
+	puts $data
+	puts "+------------------------------------------+"
+	close $fp
+    } else {
+	puts "Generating $outputfile"
+    }
+    
 
     #Run Java Glue prover; jar file relative to execution as above
-
     if {$semParser == 0} {
-    eval exec java [list -jar glueSemWorkbench2.jar \
-			-i $outputfile -o $displayfile]
-    } else {
 	eval exec java [list -jar glueSemWorkbench2.jar \
-			-i $outputfile -o $displayfile -parseSem]
+			    -i $outputfile -o $gswbfile -s]
+    } elseif {$semParser == 1} {
+	eval exec java [list -jar glueSemWorkbench2.jar \
+			    -i $outputfile -o $gswbfile -parseSem -s]
+    } elseif {$semParser == 2} {
+	eval exec java [list -jar glueSemWorkbench2.jar \
+			    -i $outputfile -o $gswbfile -prolog -s]
     }
 
-    puts "Generating $displayfile"
+    
+    if {$transferDebug == 1} {
+	puts "#### Output of the Glue Semantics Workbench: $gswbfile ####"
+	puts \n
+	set fp [open $gswbfile]
+	set data [read $fp]
+	puts $data
+	puts "+------------------------------------------+"
+	close $fp
+    } else {
+	puts "Generating $gswbfile"
+    }
+
+    
+
+
+    #Calls the DRT software to betareduce and pretty print the output by the gswb
+     #   exec swipl -q -f  src/lambdaDRT.pl -t "main." -- \
+     #"$gswbfile" "$displayfile"
+
+
+    if {$processDRT == 1} {
+	set prettydrtfile tmp/prettydrt_[pid].pl 
+	set prettydrt [open $prettydrtfile "w"]
+	set drtOutputFile tmp/drt_[pid].pl	
+	
+	set pipe [open |[list swipl -q -f  src/lambdaDRT.pl -t "main." -- \
+			     "$gswbfile" "$drtOutputFile" ] "r"]
+	while {[gets $pipe line] >= 0} {
+	    puts -nonewline $prettydrt "$line\n"
+	}
+
+    #For some reason, the pipe fails to close, when lambdaDRT.pl fails
+	if [catch {close $pipe} msg ] {
+	    puts "\nFailed to read output from lambdaDRT.pl!\n" 
+	}
+
+	close $prettydrt
+
+        if {$transferDebug == 1} {
+	    puts "#### Output of the DRT software: $prettydrtfile ####"
+	    puts \n
+	    set fp [open $prettydrtfile]
+	    set data [read $fp]
+	    puts $data
+	    puts "+------------------------------------------+"
+	    close $fp
+	} else {
+	    puts "Generating $prettydrtfile"
+	}
+	file delete $drtOutputFile
+	set displayfile $prettydrtfile
+    } else {
+	set displayfile $gswbfile
+    }
+
+    
     
     if {$displaymode == "window"} {
 	display-file $displayfile $displaywindow $position {Courir 18}
-       #Delete temporary files 
-       file delete $prologfile
-       file delete $outputfile
-       file delete $displayfile
-       file delete tmp
-       puts "Temporary files are deleted after procedure is completed."
+	#Delete temporary files
+
+	if {$transferDebug == 0} {
+	    file delete $prologfile
+	    file delete $outputfile
+	    file delete $displayfile
+#	    file delete $drtOutputFile
+	    file delete $prettydrtfile
+	    file delete $gswbfile
+	    file delete -force tmp
+	    puts "Temporary files are deleted after procedure is completed."
+	} else {
+	    puts "Temporary files are stored in the /tmp folder."
+	}
     }
 }
 

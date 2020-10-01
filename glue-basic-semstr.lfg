@@ -14,7 +14,7 @@ OPTIMALITYORDER NOGOOD.
 
 "This grammar is the same as glue-basic.lfg except that meaning constructors appear at s-structure
 rather than f-structure.  This requires a few changes to the GLUE BASIC templates. The names of the arguments
-to the templates (e.g. FSTR) have not been changed, since doing this will obscure the similarities between
+to the templates (e.g. R) have not been changed, since doing this will obscure the similarities between
 this grammar and glue-basic.lfg."
 
 ENGLISH   BASIC   RULES (1.0)
@@ -164,126 +164,126 @@ GLUE   BASIC   TEMPLATES (1.0)
 
 "Templates called by lexical entries"
 
-   GLUE-PROPERNOUN(P) =
-	  @(GLUE-REL0-MC ^ e P).
+   GLUE-PROPERNOUN(M) =
+	  @(GLUE-REL0-MC ^ e M).
 
-   GLUE-VERB-SUBJ(P) =
-	  @(GLUE-REL1-MC (^ SUBJ) e ^ t P).
+   GLUE-VERB-SUBJ(M) =
+	  @(GLUE-REL1-MC (^ SUBJ) e ^ t M).
 
-   GLUE-VERB-SUBJ-OBJ(P) =
-	  @(GLUE-REL2-MC (^ SUBJ) e (^ OBJ) e ^ t P).
+   GLUE-VERB-SUBJ-OBJ(M) =
+	  @(GLUE-REL2-MC (^ SUBJ) e (^ OBJ) e ^ t M).
 
-   GLUE-VERB-SUBJ-OBJ-OBJTH(P) =
-	  @(GLUE-REL3-MC (^ SUBJ) e (^ OBJ) e (^ OBJ-TH) e ^ t P).
+   GLUE-VERB-SUBJ-OBJ-OBJTH(M) =
+	  @(GLUE-REL3-MC (^ SUBJ) e (^ OBJ) e (^ OBJ-TH) e ^ t M).
 
-   GLUE-VERB-SUBJ-COMP(P) =
-	  @(GLUE-REL2-MC (^ SUBJ) e (^ COMP) t ^ t P).
+   GLUE-VERB-SUBJ-COMP(M) =
+	  @(GLUE-REL2-MC (^ SUBJ) e (^ COMP) t ^ t M).
 
-   GLUE-NOUN0(P) = "Meaning constructor for nouns associates the e->t-type meaning with the value of PRED"
-	  @(GLUE-NOUN0-MC P).
+   GLUE-NOUN0(M) = "Meaning constructor for nouns associates the e->t-type meaning with the value of PRED"
+	  @(GLUE-NOUN0-MC M).
 
-   GLUE-ADJ0(P) = "Meaning constructors for prenominal adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
-          @(GLUE-REL1-MC (^ PRED) e ^ t P)
-	  @(GLUE-ADJ-MODIFIER `/M`.`/N`.`/x`.and`(M`(x`)`,N`(x`)`)).
+   GLUE-ADJ0(M) = "Meaning constructors for prenominal adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
+          @(GLUE-REL1-MC (^ PRED) e ^ t M)
+	  @(GLUE-ADJ-MODIFIER `/N`.`/A`.`/x`.and`(N`(x`)`,A`(x`)`)).
 
-   GLUE-QUANT-DET(P) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
-	  @(GLUE-QUANT-MC P).
+   GLUE-QUANT-DET(M) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
+	  @(GLUE-QUANT-MC M).
 
 "Templates defining glue structures"
 
-"Zero-arity predicates have a REL, a semantic structure, and a type."
-   GLUE-REL0-MC(FSTR TY P) = 
-	  @(GLUE-SEMSTR FSTR %sstr TY)
-	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (s::FSTR GLUE).
+"Zero-arity predicates have a MEANING, a semantic structure, and a type."
+   GLUE-REL0-MC(R TY M) = 
+	  @(GLUE-RESOURCE R %mc TY)
+	  @(GLUE-MEANING %mc M)
+	  %mc $ (s::R GLUE).
 
 "Predicates with one or more arguments.  These are the simple cases,
 which do not rely on attributes in the semantic structure.  Each
 argument has a semantic structure and a type."
 
 "1-place predicates" 
-   GLUE-REL1-MC(A1 A1TY FSTR TY P) = 
-	  @(GLUE-SEMSTR FSTR %sstr TY)
-	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
-	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (s::FSTR GLUE).
+   GLUE-REL1-MC(A1 A1TY R TY M) = 
+	  @(GLUE-RESOURCE R %mc TY)
+	  @(GLUE-RESOURCE A1 (%mc ARG1) A1TY) 
+	  @(GLUE-MEANING %mc M)
+	  %mc $ (s::R GLUE).
 
 "2-place predicates"	  
-   GLUE-REL2-MC(A1 A1TY A2 A2TY FSTR TY P) = 
-	  @(GLUE-SEMSTR FSTR %sstr TY)
-	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
-	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
-	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (s::FSTR GLUE).
+   GLUE-REL2-MC(A1 A1TY A2 A2TY R TY M) = 
+	  @(GLUE-RESOURCE R %mc TY)
+	  @(GLUE-RESOURCE A1 (%mc ARG1) A1TY) 
+	  @(GLUE-RESOURCE A2 (%mc ARG2) A2TY) 
+	  @(GLUE-MEANING %mc M)
+	  %mc $ (s::R GLUE).
 
 "3-place predicates"
-   GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY FSTR TY P) = 
-	  @(GLUE-SEMSTR FSTR %sstr TY)
-	  @(GLUE-SEMSTR A1 (%sstr ARG1) A1TY) 
-	  @(GLUE-SEMSTR A2 (%sstr ARG2) A2TY) 
-	  @(GLUE-SEMSTR A3 (%sstr ARG3) A3TY) 
-	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (s::FSTR GLUE).
+   GLUE-REL3-MC(A1 A1TY A2 A2TY A3 A3TY R TY M) = 
+	  @(GLUE-RESOURCE R %mc TY)
+	  @(GLUE-RESOURCE A1 (%mc ARG1) A1TY) 
+	  @(GLUE-RESOURCE A2 (%mc ARG2) A2TY) 
+	  @(GLUE-RESOURCE A3 (%mc ARG3) A3TY) 
+	  @(GLUE-MEANING %mc M)
+	  %mc $ (s::R GLUE).
 
 "Special meaning constructor for nouns, with type
 (^ PRED)_e -o (^ PRED)_t.  This template is also used for quantifiers
-like 'everyone', so the local name %sstrn in this template must be different
-from the one used in the quantifier template GLUE-QUANT-MC (%sstr)."
-   GLUE-NOUN0-MC(P) = 
-	  @(GLUE-SEMSTR (^ PRED) (%sstrn ARG1) e) 
-	  @(GLUE-SEMSTR (^ PRED) %sstrn t)
-	  @(GLUE-MEANING %sstrn P)
-	  %sstrn $ (s::^ GLUE).
+like 'everyone', so the local name %mcn in this template must be different
+from the one used in the quantifier template GLUE-QUANT-MC (%mc)."
+   GLUE-NOUN0-MC(M) = 
+	  @(GLUE-RESOURCE (^ PRED) (%mcn ARG1) e) 
+	  @(GLUE-RESOURCE (^ PRED) %mcn t)
+	  @(GLUE-MEANING %mcn M)
+	  %mcn $ (s::^ GLUE).
 
 "Special meaning constructor to combine basic adjective meanings
 with the nouns they modify, with type
 ((^ PRED)_e -o ^_t) -o 
   ( ((ADJ $ ^) PRED)_e -o ((ADJ $ ^) PRED) -o 
      ((ADJ $ ^) PRED)_e -o ((ADJ $ ^) PRED))."
-   GLUE-ADJ-MODIFIER(P) =
-     @(GLUE-MODIFIER1 (^ PRED) e ^ t ((ADJ $ ^) PRED) e ((ADJ $ ^) PRED) t P).
+   GLUE-ADJ-MODIFIER(M) =
+     @(GLUE-MODIFIER1 (^ PRED) e ^ t ((ADJ $ ^) PRED) e ((ADJ $ ^) PRED) t M).
  
 "General template for one-place modifiers, e.g. adjectives"
-  GLUE-MODIFIER1(MODARG MODARGTY MODRES MODRESTY HEADARG HEADARGTY HEADRES HEADRESTY P) =
+  GLUE-MODIFIER1(MODARG MODARGTY MODRES MODRESTY HEADARG HEADARGTY HEADRES HEADRESTY M) =
          "Modifier"
-         @(GLUE-SEMSTR MODARG (%sstrm ARG1 ARG1) MODARGTY)
-         @(GLUE-SEMSTR MODRES (%sstrm ARG1) MODRESTY)
+         @(GLUE-RESOURCE MODARG (%mcm ARG1 ARG1) MODARGTY)
+         @(GLUE-RESOURCE MODRES (%mcm ARG1) MODRESTY)
          "Head"
-         @(GLUE-SEMSTR HEADARG (%sstrm ARG2 ARG1) HEADARGTY)
-         @(GLUE-SEMSTR HEADRES (%sstrm ARG2) HEADRESTY)
+         @(GLUE-RESOURCE HEADARG (%mcm ARG2 ARG1) HEADARGTY)
+         @(GLUE-RESOURCE HEADRES (%mcm ARG2) HEADRESTY)
 	 "Result"
-         @(GLUE-SEMSTR HEADARG (%sstrm ARG3) HEADARGTY)
-         @(GLUE-SEMSTR HEADRES %sstrm HEADRESTY)
-	 @(GLUE-MEANING %sstrm P) 
-	 %sstrm $ (s::^ GLUE).
+         @(GLUE-RESOURCE HEADARG (%mcm ARG3) HEADARGTY)
+         @(GLUE-RESOURCE HEADRES %mcm HEADRESTY)
+	 @(GLUE-MEANING %mcm M) 
+	 %mcm $ (s::^ GLUE).
 	 
 "Special template for generalized quantifiers like 'every'."
-   GLUE-QUANT-MC(P) =
+   GLUE-QUANT-MC(M) =
           "Restriction: (^ PRED)_e -o (^ PRED)_t"
-	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1 ARG1) e)
-	  @(GLUE-SEMSTR (^ PRED) (%sstr ARG1) t)
+	  @(GLUE-RESOURCE (^ PRED) (%mc ARG1 ARG1) e)
+	  @(GLUE-RESOURCE (^ PRED) (%mc ARG1) t)
 	  "Scope argument: ^_e -o ?SCOPE_t"
-	  @(GLUE-SEMSTR ^ (%sstr ARG2 ARG1) e)
-	  @(GLUE-SEMSTR %scope (%sstr ARG2) t)
+	  @(GLUE-RESOURCE ^ (%mc ARG2 ARG1) e)
+	  @(GLUE-RESOURCE %scope (%mc ARG2) t)
 	  "Result: ?SCOPE_t"
-	  @(GLUE-SEMSTR %scope %sstr t)
+	  @(GLUE-RESOURCE %scope %mc t)
 	  "introduce universal quantifier over scope with FORALL attribute"
- 	  (%sstr FORALL) = s::%scope
+ 	  (%mc FORALL) = s::%scope
           "quantifier meaning"
-	  @(GLUE-MEANING %sstr P)
-	  %sstr $ (s::^ GLUE).
+	  @(GLUE-MEANING %mc M)
+	  %mc $ (s::^ GLUE).
 
 "The base definitions.
-GLUE-SEMSTR is a term: an f-structure (standing in for an s-structure) and a type.
+GLUE-RESOURCE is a term: a linguistic resource R and a type TY.
 GLUE-MEANING provides the meaning (left-hand side) of the full meaning constructor."
 
-"SSTR is the semantic structure of the f-structure FSTR. Each semantic structure has a type."
-   GLUE-SEMSTR(FSTR SSTR TY) = 
-	  (SSTR SEMSTR) = s::FSTR
-	  (SSTR TYPE) = TY.
+"The structure TypedRES has the value R for RESOURCE, and the value TY for TYPE."
+   GLUE-RESOURCE(R TypedRES TY) = 
+	  (TypedRES RESOURCE) = s::R
+	  (TypedRES TYPE) = TY.
 
-"The meaning side appears as the value of REL in the outermost semantic structure"
-   GLUE-MEANING(SSTR P) =  
-	  (SSTR REL) = P.
+"The meaning M appears as the value of the attribute MEANING in the structure TypedRES."
+   GLUE-MEANING(TypedRES M) =  
+	  (TypedRES MEANING) = M.
 
 ----
