@@ -188,6 +188,7 @@ GLUE   BASIC   TEMPLATES (1.0)
 
 "Templates defining glue structures"
 
+
 "Zero-arity predicates have a MEANING, a semantic structure, and a type."
    GLUE-REL0-MC(R TY M) = 
 	  @(GLUE-RESOURCE R %mc TY)
@@ -282,5 +283,6 @@ GLUE-MEANING provides the meaning (left-hand side) of the full meaning construct
 "The meaning M appears as the value of the attribute MEANING in the structure TypedRES."
    GLUE-MEANING(TypedRES M) =  
 	  (TypedRES MEANING) = M.
+
 
 ----

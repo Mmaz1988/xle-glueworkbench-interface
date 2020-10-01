@@ -104,8 +104,6 @@ find_glue(BoundVars0, FStr, AttrVals, Glue) :-
     % Check for quantification via the FORALL attribute
     check_for_quant(AttrVals, FStr, BoundVars1),
     append(BoundVars0, BoundVars1, BoundVars),
-    % Assemble the result term from the attributes RESOURCE
-    % (SEMSTR in former versions of the implementation) and TYPE.
     assemble_term(BoundVars, AttrVals, Result),
     % Construct the argument terms.  If the formula is in the scope of
     % a quantified variable or a set of quantified variables, prefix

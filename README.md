@@ -19,7 +19,7 @@ Confirmed functional* for:
 
 # Relevant content
 
-- XLE+Glue manual:  
+- Manual_for_XLE_Glue_system.pdf:  
 A detailed description of the system expanding on this README. 
 - src/glue.tcl:  
 Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
@@ -37,6 +37,8 @@ A simple grammar that encodes glue premises in the f-structure
 A simple grammar that encodes glue premises in the s-structure
 - glue-basic-semparser.lfg:   
 A simple grammar that makes use of the semantic parser functionality of the GSWB (treat this as a grammar in development)
+- glue-basic-flat-encoding.lfg:    
+A simple grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
 
 # Requirements
 
@@ -113,11 +115,11 @@ parsing {a man yawned}
 The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
 # Command 
-![alt text](fstructure.png)
+![alt text](pictures/fstructure.png)
 
 # Expected output
 
-![alt text](semantics.png)
+![alt text](pictures/semantics.png)
 
 To change font or font size, you can change the following piece of code towards the end of the glue.tcl file.
 

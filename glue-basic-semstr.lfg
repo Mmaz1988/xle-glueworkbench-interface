@@ -286,4 +286,5 @@ GLUE-MEANING provides the meaning (left-hand side) of the full meaning construct
    GLUE-MEANING(TypedRES M) =  
 	  (TypedRES MEANING) = M.
 
+
 ----
