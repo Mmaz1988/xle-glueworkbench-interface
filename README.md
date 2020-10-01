@@ -66,14 +66,19 @@ some/directory/glueSemWorkbench2.jar
 			-i $outputfile -o $displayfile]
 ```
 
-- The GSWB allows for activation of semantic parsing by the GSWB. This variable is set in the xlerc file. Change the value in the following line of code from 0 to 1.
+- The GSWB allows to specify different output modes. The default output mode encodes functional application by concatenating functor and argument and wrapping the argument in parentheses, semantic parsing allows to use a string-encoding that can be translated into semantic structures by the GSWB, and Prolog output uses the PROLOG version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics. 
 
 ```
-# activate semantic parser (1/0)
+# activate semantic parser (0: no parsing / 1: semantic Parsing / 2: Prolog)
 set semParser 0
 ```
 
+GSWB optionally allows to process output from grammars that encode meaning in terms of lambda-DRT. To use this, set processDRT to 1. The output changes to the boxer-style DRS graphical representation. This only works if an appropriate grammar is loaded! 
 
+```
+# activate DRT mode (1/0); requires Prolog parsing! 
+set processDRT 1
+```
 
 # Running the system
 
