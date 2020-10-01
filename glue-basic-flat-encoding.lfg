@@ -161,7 +161,6 @@ GLUE   BASIC   TEMPLATES (1.0)
 
 "Templates called by lexical entries"
 
-<<<<<<< HEAD
    GLUE-PROPERNOUN(M) =
 	  @(GLUE-REL0-MC ^ e M).
 
@@ -186,37 +185,10 @@ GLUE   BASIC   TEMPLATES (1.0)
 
    GLUE-QUANT-DET(M) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
 	  @(GLUE-QUANT-MC M).
-=======
-   GLUE-PROPERNOUN(P) =
-	  @(GLUE-REL0-MC ^ e P).
-
-   GLUE-VERB-SUBJ(P) =
-	  @(GLUE-REL1-MC (^ SUBJ) e ^ t P).
-
-   GLUE-VERB-SUBJ-OBJ(P) =
-	  @(GLUE-REL2-MC (^ SUBJ) e (^ OBJ) e ^ t P).
-
-   GLUE-VERB-SUBJ-OBJ-OBJTH(P) =
-	  @(GLUE-REL3-MC (^ SUBJ) e (^ OBJ) e (^ OBJ-TH) e ^ t P).
-
-   GLUE-VERB-SUBJ-COMP(P) =
-	  @(GLUE-REL2-MC (^ SUBJ) e (^ COMP) t ^ t P).
-
-   GLUE-NOUN0(P) = "Meaning constructor for nouns associates the e->t-type meaning with the value of PRED"
-	  @(GLUE-NOUN0-MC P).
-
-   GLUE-ADJ0(P) = "Meaning constructors for prenominal adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
-          @(GLUE-REL1-MC (^ PRED) e ^ t P)
-	  @(GLUE-ADJ-MODIFIER `/M`.`/N`.`/x`.and`(M`(x`)`,N`(x`)`)).
-
-   GLUE-QUANT-DET(P) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
-	  @(GLUE-QUANT-MC P).
->>>>>>> 15c502980c9deabca1fde44b87d47cf677579526
 
 "Templates defining glue structures"
 
 "Zero-arity predicates."
-<<<<<<< HEAD
    GLUE-REL0-MC(R TY M) = 
 	  (%mc A1) = M
 	  (%mc A2) = `:
@@ -224,22 +196,12 @@ GLUE   BASIC   TEMPLATES (1.0)
 	  (%mc A4) = _
 	  (%mc A5) = TY
 	  %mc $ (R GLUE).
-=======
-   GLUE-REL0-MC(FSTR TY P) = 
-	  (%sstr A1) = P
-	  (%sstr A2) = `:
-	  (%sstr A3) = FSTR
-	  (%sstr A4) = _
-	  (%sstr A5) = TY
-	  %sstr $ (FSTR GLUE).
->>>>>>> 15c502980c9deabca1fde44b87d47cf677579526
 
 "Predicates with one or more arguments.  These are the simple cases,
 which do not rely on attributes in the semantic structure.  Each
 argument has a semantic structure and a type."
 
 "1-place predicates" 
-<<<<<<< HEAD
    GLUE-REL1-MC(A1 A1TY R TY M) =
       	  (%mc ARG01) = M
 	  (%mc ARG02) = `:`(
