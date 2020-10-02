@@ -1,0 +1,242 @@
+GLUE   BASIC   CONFIG (1.0)  
+  ROOTCAT   CP.  
+  FILES  .
+  LEXENTRIES   (ENGLISH BASIC).  
+  RULES   (ENGLISH BASIC).
+  TEMPLATES (ENGLISH BASIC) (GLUE BASIC).
+  GOVERNABLERELATIONS    SUBJ OBJ OBJ?+ OBL?+ COMP XCOMP.
+  SEMANTICFUNCTIONS    ADJUNCT TOPIC FOCUS.  
+  NONDISTRIBUTIVES    NUM PERS.
+  EPSILON   e.  
+  CHARACTERENCODING utf-8.
+OPTIMALITYORDER NOGOOD.
+
+----
+
+"AVM representations of meaning constructors appear as members of the GLUE set at f-structure."
+
+ENGLISH   BASIC   RULES (1.0)
+
+   CP --> C'.
+
+   C' --> (C) 
+ 	  IP.
+
+   C =   Comp.
+
+   IP --> (NP: (^ SUBJ) = !) 
+ 	  I'.
+
+   I' --> (I)
+ 	  VP.
+
+   I = Aux.
+
+   VP --> V'.
+
+   V' --> (V)
+ 	  (NP: (^ OBJ) = !).
+
+   NP --> (Det)
+ 	  N'.
+
+   N' --> (Adj: ! $ (^ ADJ))
+ 	  N.
+
+----
+
+ENGLISH   BASIC   LEXICON (1.0)
+
+"Complementizer"
+
+  that 	  Comp * (^ COMPFORM) = 'that'.
+
+"Nouns"
+
+  David   N * @(PROPERNOUN david).
+
+  Chris   N * @(PROPERNOUN chris).
+
+  Tracy   N * @(PROPERNOUN tracy).
+
+  Kim   N * @(PROPERNOUN kim).
+
+  man 	  N * @(NOUN0 man).
+
+  woman   N * @(NOUN0 woman).
+
+  book 	  N * @(NOUN0 book).
+
+  person  N * @(NOUN0 person).
+
+  everyone N * @(QUANT everyone every person).
+
+"Determiners"
+
+  the 	  Det * @(SPEC-NONQUANT the).
+
+  a 	  Det * @(SPEC-NONQUANT a).
+
+  every   Det * @(SPEC-QUANT every).
+  
+
+"Verbs"
+
+  yawned  V * @(VERB-SUBJ yawn)
+	      @VPAST.
+
+  smiled  V * @(VERB-SUBJ smile)
+	      @VPAST.
+
+  saw 	  V * @(VERB-SUBJ-OBJ see)
+	      @VPAST.
+
+----
+
+ENGLISH   BASIC   TEMPLATES (1.0)
+
+"Nouns"
+
+   PROPERNOUN(P) = (^ PRED) = 'P'
+	  @(GLUE-PROPERNOUN P).
+
+   NOUN0(P) = (^ PRED) = 'P'
+	  @(GLUE-NOUN0 P).
+
+"Quantifiers like 'everyone' call the template for quantificational 
+determiners and the template for common nouns."
+
+   QUANT(P Q N) = (^ PRED) = 'P'
+          @(GLUE-EVERY Q)
+          @(GLUE-NOUN0-MC N).
+
+"Determiners"
+
+   SPEC-QUANT(Q) = (^ SPEC PRED) = 'Q'
+	  @(GLUE-QUANT-DET Q).
+
+   SPEC-NONQUANT(Q) = (^ SPEC PRED) = 'Q'
+	  @(GLUE-NONQUANT-DET Q).
+
+"Verbs"
+
+   VERB-SUBJ(P) =
+	  (^ PRED) = 'P<(^ SUBJ)>'
+	  @(GLUE-VERB-SUBJ P).
+	  
+   VERB-SUBJ-OBJ(P) =
+	  (^ PRED) = 'P<(^ SUBJ)(^ OBJ)>'
+	  @(GLUE-VERB-SUBJ-OBJ P).
+
+   VPAST = (^ VTYPE) = FIN
+	  (^ TENSE) = PST.
+
+----
+
+GLUE   BASIC   TEMPLATES (1.0)
+
+"Templates called by lexical entries"
+
+   GLUE-PROPERNOUN(M) =
+	  @(GLUE-REL0-MC ^ e M).
+
+   GLUE-VERB-SUBJ(M) =
+	  @(GLUE-REL1-MC (^ SUBJ) e ^ t M).
+
+   GLUE-VERB-SUBJ-OBJ(M) =
+	  @(GLUE-REL2-MC (^ SUBJ) e (^ OBJ) e ^ t M).
+
+   GLUE-NOUN0(M) = "Meaning constructor for nouns associates the e->t-type meaning with the value of PRED"
+	  @(GLUE-NOUN0-MC M).
+
+   GLUE-QUANT-DET(M) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
+	  @(GLUE-EVERY M).
+   GLUE-NONQUANT-DET(M) = "Meaning constructor for nonquantificational determiners"
+	  @(GLUE-A M).
+
+"Templates defining glue structures"
+
+"Zero-arity predicates have a MEANING, a semantic structure, and a type."
+   GLUE-REL0-MC(R TY M) = 
+	  @(GLUE-RESOURCE R %mc TY)
+	  @(GLUE-MEANING %mc M)
+	  %mc $ (R GLUE).
+
+"Predicates with one or more arguments.  These are the simple cases,
+which do not rely on attributes in the semantic structure.  Each
+argument has a semantic structure and a type."
+
+"1-place predicates" 
+   GLUE-REL1-MC(A1 A1TY R TY M) =
+   	  @(GLUE-RESOURCE R %mc TY)
+	  @(GLUE-RESOURCE A1 (%mc ARG1) A1TY) 
+	  @(CONCAT lam`(X`,drs`(`[ `] `, `[ pred `( M `,X`)`]`)`) %MEANING)
+	  @(GLUE-MEANING %mc %MEANING)
+	  %mc $ (R GLUE).
+
+"2-place predicates"	  
+   GLUE-REL2-MC(A1 A1TY A2 A2TY R TY M) = 
+	  @(GLUE-RESOURCE R %mc TY)
+	  @(GLUE-RESOURCE A1 (%mc ARG1) A1TY) 
+	  @(GLUE-RESOURCE A2 (%mc ARG2) A2TY)
+	  @(CONCAT lam`(X`,lam`(Y`,drs`(`[ `] `, `[ rel `( M `,X`,Y`)`]`)`)`) %MEANING)
+	  @(GLUE-MEANING %mc %MEANING)
+	  %mc $ (R GLUE).
+
+"Special meaning constructor for nouns, with type
+(^ PRED)_e -o (^ PRED)_t.  This template is also used for quantifiers
+like 'everyone', so the local name %mcn in this template must be different
+from the one used in the quantifier template GLUE-EVERY (%mc)."
+   GLUE-NOUN0-MC(M) = 
+	  @(GLUE-RESOURCE (^ PRED) (%mcn ARG1) e) 
+	  @(GLUE-RESOURCE (^ PRED) %mcn t)
+	  @(CONCAT lam`(X`,drs`(`[`]`,`[pred`( M `,X`)`]`)`) %MEANING)
+	  @(GLUE-MEANING %mcn %MEANING)
+	  %mcn $ (^ GLUE).
+
+"Special template for generalized quantifiers like 'every'."
+   GLUE-EVERY(M) =
+          "Restriction: (^ PRED)_e -o (^ PRED)_t"
+	  @(GLUE-RESOURCE (^ PRED) (%mc ARG1 ARG1) e)
+	  @(GLUE-RESOURCE (^ PRED) (%mc ARG1) t)
+	  "Scope argument: ^_e -o ?SCOPE_t"
+	  @(GLUE-RESOURCE ^ (%mc ARG2 ARG1) e)
+	  @(GLUE-RESOURCE %scope (%mc ARG2) t)
+	  "Result: ?SCOPE_t"
+	  @(GLUE-RESOURCE %scope %mc t)
+	  "introduce universal quantifier over scope with FORALL attribute"
+ 	  (%mc FORALL) = %scope
+          "quantifier meaning"
+	  @(GLUE-MEANING %mc lam`(R`,lam`(S`,drs`(`[`]`,`[imp`(merge`(drs`(`[X`]`,`[`]`)`,app`(R`,X`)`)`,app`(S`,X`)`)`]`)`)`))
+	  %mc $ (^ GLUE).
+
+"Template for nonquantificational quantifiers like 'a'."
+   GLUE-A(M) =
+          "Restriction: (^ PRED)_e -o (^ PRED)_t"
+	  @(GLUE-RESOURCE (^ PRED) (%mc ARG1 ARG1) e)
+	  @(GLUE-RESOURCE (^ PRED) (%mc ARG1) t)
+	  "Scope argument: ^_e -o ?SCOPE_t"
+	  @(GLUE-RESOURCE ^ (%mc ARG2 ARG1) e)
+	  @(GLUE-RESOURCE %scope (%mc ARG2) t)
+	  "Result: ?SCOPE_t"
+	  @(GLUE-RESOURCE %scope %mc t)
+	  "introduce universal quantifier over scope with FORALL attribute"
+ 	  (%mc FORALL) = %scope
+          "quantifier meaning"
+	  @(GLUE-MEANING %mc lam`(R`,lam`(S`,merge`(drs`(`[X`]`,`[`]`)`,merge`(app`(R`,X`)`,app`(S`,X`)`)`)`)`))
+	  %mc $ (^ GLUE).
+
+"The base definitions.
+GLUE-RESOURCE is a term: a linguistic resource R and a type TY.
+GLUE-MEANING provides the meaning (left-hand side) of the full meaning constructor."
+
+"The structure TypedRES has the value R for RESOURCE, and the value TY for TYPE."
+   GLUE-RESOURCE(R TypedRES TY) = 
+	  (TypedRES RESOURCE) = R
+	  (TypedRES TYPE) = TY.
+
+"The meaning M appears as the value of the attribute MEANING in the structure TypedRES."
+   GLUE-MEANING(TypedRES M) =  
+	  (TypedRES MEANING) = M.
+
+----
