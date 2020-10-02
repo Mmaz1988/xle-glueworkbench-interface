@@ -8,6 +8,7 @@ GLUE   BASIC   CONFIG (1.0)
   SEMANTICFUNCTIONS    ADJUNCT TOPIC FOCUS.  
   NONDISTRIBUTIVES    NUM PERS.
   EPSILON   e.  
+  CHARACTERENCODING utf-8.
 OPTIMALITYORDER NOGOOD.
 
 ----
@@ -184,7 +185,7 @@ GLUE   BASIC   TEMPLATES (1.0)
 
    GLUE-ADJ0(M) = "Meaning constructors for prenominal adjectives provide the basic meaning and the meaning constructor that combines it with the noun"
           @(GLUE-REL1-MC (^ PRED) e ^ t M)
-	  @(GLUE-ADJ-MODIFIER `/N`.`/A`.`/x`.and`(N`(x`)`,A`(x`)`)).
+	  @(GLUE-ADJ-MODIFIER `/P`.`/Q`.`/x`.and`(P`(x`)`,Q`(x`)`)).
 
    GLUE-QUANT-DET(M) = "Meaning constructor for quantificational determiners, with embedded implication and quantification over the scope structure"
 	  @(GLUE-QUANT-MC M).
@@ -285,6 +286,5 @@ GLUE-MEANING provides the meaning (left-hand side) of the full meaning construct
 "The meaning M appears as the value of the attribute MEANING in the structure TypedRES."
    GLUE-MEANING(TypedRES M) =  
 	  (TypedRES MEANING) = M.
-
 
 ----

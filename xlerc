@@ -1,6 +1,9 @@
 #xlerc file for Glue grammar with interface to Java
-#Date: October 30th, 2019
+#Date: October 2nd, 2020
 #Author: Mark-Matthias Zymla
+
+#set encoding to utf-8
+set-character-encoding stdio utf-8
 
 # set timeout lower; amounts are in seconds
 set timeout 15
@@ -39,7 +42,7 @@ set defaultTmpDir /tmp
 source $defaultGlueTCL
 
 # activate semantic parser (0: no parsing / 1: semantic Parsing / 2: Prolog)
-set semParser 2
+set semParser 0
 
 # activate DRT mode (1/0); requires Prolog parsing! 
 set processDRT 0
