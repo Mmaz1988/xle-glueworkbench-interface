@@ -65,9 +65,8 @@ prover" is written. Replace glueSemWorkbench2.jar with
 some/directory/glueSemWorkbench2.jar
 
 ```
-	#Run Java Glue prover; jar file relative to execution as above 
-	eval exec java [list -jar glueSemWorkbench2.jar \
-			-i $outputfile -o $displayfile]
+#Set path of gswb
+set gswbpath "glueSemWorkbench2.jar"
 ```
 
 - The GSWB allows to specify different output modes. The default output mode encodes functional application by concatenating functor and argument and wrapping the argument in parentheses, semantic parsing allows to use a string-encoding that can be translated into semantic structures by the GSWB, and Prolog output uses the PROLOG version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics. 
@@ -77,7 +76,14 @@ some/directory/glueSemWorkbench2.jar
 set semParser 0
 ```
 
-GSWB optionally allows to process output from grammars that encode meaning in terms of lambda-DRT. To use this, set processDRT to 1. The output changes to the boxer-style DRS graphical representation. This only works if an appropriate grammar is loaded! 
+- The GSWB allows to provide detailed output, as well as the possibility to only output the solution. The following flag changes this behaviour. 
+
+```
+#detailed output
+set solutionOnly 1
+```
+
+- GSWB optionally allows to process output from grammars that encode meaning in terms of lambda-DRT. To use this, set processDRT to 1. The output changes to the boxer-style DRS graphical representation. This only works if an appropriate grammar is loaded! 
 
 ```
 # activate DRT mode (1/0); requires Prolog parsing! 
@@ -86,7 +92,7 @@ set processDRT 1
 
 # Running the system
 
-The next step is to navigate to the top-level folder of the project (it contains the xlerc file) via some shell (e.g. Terminal for Linux/MacOS, PowerShell for Windows).
+- The next step is to navigate to the top-level folder of the project (it contains the xlerc file) via some shell (e.g. Terminal for Linux/MacOS, PowerShell for Windows).
 Then run XLE. The result should look something like the following: 
 
 ```
@@ -121,16 +127,18 @@ If this succeeds you can parse a sentence as usual in XLE.
 parsing {a man yawned}
 2 solutions, 0.000 CPU seconds, 0.000MB max mem, 26 subtrees unified
 ```
-The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
+- The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
 # Command 
 ![alt text](pictures/fstructure.png)
 
 # Expected output
-
+- The default output consists only of the solution given by the prover.
+![alt text](pictures/semantics2.png)
+- The detailed ouput looks like this.
 ![alt text](pictures/semantics.png)
 
-To change font or font size, you can change the following piece of code towards the end of the glue.tcl file.
+- To change font or font size, you can change the following piece of code towards the end of the glue.tcl file.
 
 ```
 if {$displaymode == "window"}
