@@ -57,12 +57,11 @@ also tested with oracle java 8. Feedback for other platforms is appreciated.
 # Setting up the system
 
 
-- The project contains a version of the GSWB, however, you can 
-specify the path to your own version of the GSWB in src/glue.tcl at your own risk (see below).  
+- Most relevant parameters are set in the xlerc file contained in the repository. The first step is to load an appropriate grammar via the line:
 
 ```
-#Set path of gswb
-set gswbpath "glueSemWorkbench2.jar"
+#Here the grammar is loaded 
+set defaultGlueParser [relpath grammars/glue-basic.lfg]
 ```
 
 - The GSWB allows to specify different output modes. The default output mode encodes functional application by concatenating functor and argument and wrapping the argument in parentheses, semantic parsing allows to use a string-encoding that can be translated into semantic structures by the GSWB, and Prolog output uses the Prolog version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics. 
@@ -84,6 +83,22 @@ set solutionOnly 1
 ```
 # activate DRT mode (1/0); requires Prolog parsing! 
 set processDRT 1
+```
+
+- To change font or font size, you can change the following piece of code in the xlerc file. 
+
+```
+#set font
+set outputfont Courir
+set fontsize 18
+```
+
+- The project contains a version of the GSWB, however, you can 
+specify the path to your own version of the GSWB in src/glue.tcl at your own risk (see below).  
+
+```
+#Set path of gswb
+set gswbpath "glueSemWorkbench2.jar"
 ```
 
 # Running the system
@@ -132,14 +147,6 @@ parsing {a man yawned}
 ![alt text](pictures/semantics2.png)
 - The detailed ouput looks like this.
 ![alt text](pictures/semantics.png)
-
-- To change font or font size, you can change the following piece of code towards the end of the glue.tcl file.
-
-```
-if {$displaymode == "window"}
-	display-file $displayfile $displaywindow $position {Courir 18}
-
-```
 
 
 # Acknowledgements 
