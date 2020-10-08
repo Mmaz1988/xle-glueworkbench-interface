@@ -56,11 +56,9 @@ also tested with oracle java 8. Feedback for other platforms is appreciated.
 
 # Setting up the system
 
-- Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file. For further assistance refer to the respective documentations.
-
 
 - The project contains a version of the GSWB, however, you can 
-specify the path to your own version of the GSWB in src/glue.tcl (see below). 
+specify the path to your own version of the GSWB in src/glue.tcl at your own risk (see below).  
 
 ```
 #Set path of gswb
