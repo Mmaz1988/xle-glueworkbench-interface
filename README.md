@@ -3,7 +3,7 @@ This code makes it possible to call the Glue semantics workbench (GSWB) from XLE
 The project contains a sample xle grammar that encodes Glue premises in the f-structure.
 The folder /src contains prolog procedures that translate the Glue premises in an f-structure to strings
 that are formatted such that they can be read by the Glue semantics workbench. 
-The file glue.tcl adds a command to the XLE GUI that allows you to run the PROLOG procedures and the Glue semantics workbench and return the result.
+The file glue.tcl adds a command to the XLE GUI that allows you to run the Prolog procedures and the Glue semantics workbench and return the result.
 
 Confirmed functional* for:
 
@@ -65,7 +65,7 @@ specify the path to your own version of the GSWB in src/glue.tcl at your own ris
 set gswbpath "glueSemWorkbench2.jar"
 ```
 
-- The GSWB allows to specify different output modes. The default output mode encodes functional application by concatenating functor and argument and wrapping the argument in parentheses, semantic parsing allows to use a string-encoding that can be translated into semantic structures by the GSWB, and Prolog output uses the PROLOG version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics. 
+- The GSWB allows to specify different output modes. The default output mode encodes functional application by concatenating functor and argument and wrapping the argument in parentheses, semantic parsing allows to use a string-encoding that can be translated into semantic structures by the GSWB, and Prolog output uses the Prolog version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics. 
 
 ```
 # activate semantic parser (0: no parsing / 1: semantic Parsing / 2: Prolog)
