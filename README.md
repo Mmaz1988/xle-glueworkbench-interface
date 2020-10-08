@@ -76,7 +76,7 @@ set gswbpath "glueSemWorkbench2.jar"
 set semParser 0
 ```
 
-- The GSWB allows to provide detailed output, as well as the possibility to only output the solution. The following flag changes this behaviour. 
+- The GSWB allows to provide detailed output, as well as the possibility to only output the solution of the Glue derivation. The following flag changes this behaviour. 
 
 ```
 #detailed output
@@ -96,27 +96,26 @@ set processDRT 1
 Then run XLE. The result should look something like the following: 
 
 ```
-lap0987:gluegrammar red_queen$ xle
+red-queen:gluegrammar red_queen$ xle
 XLE loaded from xle.
-XLEPATH = /Applications/xle-2009-09-18.
+XLEPATH = /Applications/xle-intelmac64-2017-09-25.
 Copyright (c) 1993-2001 by the Xerox Corporation and
-Copyright (c) 2002-2009 by the Palo Alto Research Center.
+Copyright (c) 2002-2011 by the Palo Alto Research Center.
 All rights reserved. This software is made available AS IS,
 and PARC and the Xerox Corporation make no warranty about
 the software, its performance or its conformity to any specification.
-XLE version 2.6.5 (built Sep 16, 2009 16:07 -0700)
+XLE release of Sep 25, 2017 21:02.
 Type 'help' for more information.
-loading /Users/red_queen/Projects/gluegrammar/glue-basic.lfg...
-Grammar has 8 rules with 22 states, 21 arcs, and 21 disjuncts (21 DNF).
+loading /Users/red_queen/Projects/gluegrammar/grammars/glue-basic.lfg...
+Grammar has 8 rules with 24 states, 27 arcs, and 27 disjuncts (27 DNF).
+MORPHOLOGYCONFIGFILE = /Applications/xle-intelmac64-2017-09-25/bin/default-morph-config.
 
-(re)Indexing lexicon section ( ENGLISH BASIC ) for  parse 
-MORPHOLOGYCONFIGFILE = /Applications/xle-2009-09-18/bin/default-morph-config.
+Morph transducer files relative to /Applications/xle-intelmac64-2017-09-25/bin/
 
-Morph transducer files relative to /Applications/xle-2009-09-18/bin/
-
-0.010 CPU seconds
-/Users/red_queen/Projects/gluegrammar/glue-basic.lfg loaded
-Grammar last modified on Aug 28, 2019 09:30.
+0.005 CPU seconds
+/Users/red_queen/Projects/gluegrammar/grammars/glue-basic.lfg loaded
+Grammar last modified on Oct 08, 2020 09:35.
+Debug mode is active.
 /Users/red_queen/Projects/gluegrammar/xlerc loaded.
 % 
 ```
@@ -127,7 +126,7 @@ If this succeeds you can parse a sentence as usual in XLE.
 parsing {a man yawned}
 2 solutions, 0.000 CPU seconds, 0.000MB max mem, 26 subtrees unified
 ```
-- The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation including the underlying premises and their compiled counterpart, the agenda. Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
+- The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation (including the underlying premises and their compiled counterpart, the agenda, if solutionOnly is set to 0). Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
 # Command 
 ![alt text](pictures/fstructure.png)
