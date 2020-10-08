@@ -63,7 +63,9 @@ proc create-glue-menus {} {
 
 proc fsdata-to-premises {displaywindow window displaymode position} {
    
-    global defaultTmpDir semParser transferDebug processDRT solutionOnly
+    global defaultTmpDir semParser transferDebug processDRT solutionOnly \
+	outputfont fontsize
+	
     
     #For Sicstus Prolog
     #global defaultPrologFiles
@@ -216,7 +218,7 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     
     
     if {$displaymode == "window"} {
-	display-file $displayfile $displaywindow $position {Courir 18}
+	display-file $displayfile $displaywindow $position "$outputfont $fontsize"
 	#Delete temporary files
 
 	if {$transferDebug == 0} {

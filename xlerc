@@ -53,6 +53,10 @@ set processDRT 0
 # activate debug mode (1/0)
 set transferDebug 1
 
+#set font
+set outputfont Courir
+set fontsize 18
+
 #init-glue is defined in the tcl file.
 # Load in the specified rules:
 init-glue
