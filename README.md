@@ -1,9 +1,10 @@
 # XLE+Glue
+
 This code makes it possible to call the Glue semantics workbench (GSWB) from XLE.
 The project contains a sample xle grammar that encodes Glue premises in the f-structure.
-The folder /src contains prolog procedures that translate the Glue premises in an f-structure to strings
+The folder `/src` contains Prolog procedures that translate the Glue premises in an f-structure to strings
 that are formatted such that they can be read by the Glue semantics workbench. 
-The file glue.tcl adds a command to the XLE GUI that allows you to run the Prolog procedures and the Glue semantics workbench and return the result.
+The file `glue.tcl` adds a command to the XLE GUI that allows you to run the Prolog procedures and the Glue semantics workbench and return the result.
 
 Confirmed functional* for:
 
@@ -19,29 +20,29 @@ Confirmed functional* for:
 
 # Relevant content
 
-- Manual_for_XLE_Glue_system.pdf:  
+- `Manual_for_XLE_Glue_system.pdf`:  
 A detailed description of the system expanding on this README. 
-- src/glue.tcl:  
+- `src/glue.tcl`:  
 Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
-- src/extract_analysis.pl:  
+- `src/extract_analysis.pl`:  
 Part of the system that extracts and rewrites glue premises from avms into strings 
-- src/premises.pl:   
+- `src/premises.pl`:   
 Part of the system that extracts and rewrites glue premises from avms into strings
-- src/transfer_glue_premises.pl:   
+- `src/transfer_glue_premises.pl`:   
 Part of the system that extracts and rewrites glue premises from avms into strings
-- xlerc:  
+- `xlerc`:  
 For loading the grammar and setting up environment variables for the semantic system
-- grammars/glue-basic.lfg:  
+- `grammars/glue-basic.lfg`:  
 A simple grammar that encodes glue premises in the f-structure
-- grammars/glue-basic-semstr.lfg:    
+- `grammars/glue-basic-semstr.lfg`:    
 A simple grammar that encodes glue premises in the s-structure
-- grammars/glue-basic-semparser.lfg:   
+- `grammars/glue-basic-semparser.lfg`:   
 A simple grammar that makes use of the semantic parser functionality of the GSWB (treat this as a grammar in development)
-- grammars/glue-basic-flat-encoding.lfg:    
+- `grammars/glue-basic-flat-encoding.lfg`:    
 A simple grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
-- grammars_concept/glue-basic-semparser_ND.lfg:    
+- `grammars_concept/glue-basic-semparser_ND.lfg`:    
 A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics.
-- grammars_concept/glue-basic-drt.lfg:   
+- `grammars_concept/glue-basic-drt.lfg`:   
 A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT. This grammar requires additional files from the Boxer system (Bos, 2015), which we cannot make available ourselves. 
 
 # Requirements
@@ -52,40 +53,46 @@ Download (clone) this repository to your computer. Once all the requirements lis
 also tested with oracle java 8. Feedback for other platforms is appreciated.
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system.
 - Xerox Linguistics Environment (XLE). The project is designed to be independent of XLE version, but feedback is welcome.
-- When installing Java and SWI-Prolog make sure, that the respective binaries are added to the $PATH variable. This holds for both windows and unix systems.  
+- When installing Java and SWI-Prolog make sure, that the respective binaries are added to the `$PATH` variable. This holds for both windows and unix systems.  
 
 # Setting up the system
 
+Most relevant parameters are set in the `xlerc` file contained in the repository.
 
-- Most relevant parameters are set in the xlerc file contained in the repository. The first step is to load an appropriate grammar via the line:
+- The first step is to load an appropriate grammar using the `defaultGlueParser` parameter – the `glue-basic.lfg` sample grammar is loaded by default:
 
 ```
 #Here the grammar is loaded 
 set defaultGlueParser [relpath grammars/glue-basic.lfg]
 ```
 
-- The GSWB allows to specify different output modes. The default output mode encodes functional application by concatenating functor and argument and wrapping the argument in parentheses, semantic parsing allows to use a string-encoding that can be translated into semantic structures by the GSWB, and Prolog output uses the Prolog version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics. 
+- Different grammars use different GSWB output modes set using the `semParser` parameter:
 
 ```
 # activate semantic parser (0: no parsing / 1: semantic Parsing / 2: Prolog)
 set semParser 0
 ```
 
-- The GSWB allows to provide detailed output, as well as the possibility to only output the solution of the Glue derivation. The following flag changes this behaviour. 
+The default output mode (`0`) encodes functional application by concatenating functor and argument and wrapping the argument in parentheses – it is used with these grammars: `glue-basic.lfg`, `glue-basic-semstr.lfg`, `glue-basic-flat-encoding.lfg`. Semantic parsing mode (`1`) makes it possible to use a string-encoding that can be translated into semantic structures by the GSWB – it is used with these grammars: `glue-basic-semparser.lfg`, `glue-basic-semparser_ND.lfg`. Prolog output mode (`2`) uses the Prolog version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics – it is used with this grammar: `glue-basic-drt.lfg`.
 
-```
-#detailed output
-set solutionOnly 1
-```
-
-- GSWB optionally allows to process output from grammars that encode meaning in terms of lambda-DRT. To use this, set processDRT to 1. The output changes to the boxer-style DRS graphical representation. This only works if an appropriate grammar is loaded! 
+- GSWB can process output from grammars that encode meaning in terms of lambda-DRT. To use this option, set the `processDRT` parameter to `1`: 
 
 ```
 # activate DRT mode (1/0); requires Prolog parsing! 
 set processDRT 1
 ```
 
-- To change font or font size, you can change the following piece of code in the xlerc file. 
+The output changes to the boxer-style DRS graphical representation. This only works if an appropriate grammar is loaded (`glue-basic-drt.lfg`)!
+
+
+- The `solutionOnly` parameter determines whether the GSWB provides only the solution of the Glue derivation (`1`) or detailed output of the proof (`0`):
+
+```
+#detailed output
+set solutionOnly 1
+```
+
+- The following parameters make it possible to change font or font size (in the semantics window):
 
 ```
 #set font
@@ -94,7 +101,7 @@ set fontsize 18
 ```
 
 - The project contains a version of the GSWB, however, you can 
-specify the path to your own version of the GSWB in src/glue.tcl at your own risk (see below).  
+specify the path to your own version of the GSWB in `src/glue.tcl` at your own risk (see below).  
 
 ```
 #Set path of gswb
@@ -137,15 +144,15 @@ If this succeeds you can parse a sentence as usual in XLE.
 parsing {a man yawned}
 2 solutions, 0.000 CPU seconds, 0.000MB max mem, 26 subtrees unified
 ```
-- The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation (including the underlying premises and their compiled counterpart, the agenda, if solutionOnly is set to 0). Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
+- The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation (including the underlying premises and their compiled counterpart, the agenda, if `solutionOnly` is set to `0`). Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
 # Command 
 ![alt text](pictures/fstructure.png)
 
 # Expected output
-- The default output consists only of the solution given by the prover.
+- The default output (`set solutionOnly 1`) consists only of the solution given by the prover.
 ![alt text](pictures/semantics2.png)
-- The detailed ouput looks like this.
+- The detailed ouput (`set solutionOnly 0`) looks like this.
 ![alt text](pictures/semantics.png)
 
 
