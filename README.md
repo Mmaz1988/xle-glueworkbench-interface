@@ -1,7 +1,7 @@
 # XLE+Glue
 
 This code makes it possible to call the Glue Semantics Workbench (GSWB) from XLE.
-The folders `/grammars` and `grammars_concept/` contains sample XLE grammars (see the descriptions in "Relevant content").
+The folders `/grammars` and `grammars_concept/` contains some sample XLE grammars (see the descriptions in "Relevant content").
 The folder `/src` contains Prolog procedures that translate the glue premises in an f-structure to strings
 that are formatted such that they can be read by the GSWB. 
 The file `glue.tcl` adds a command to the XLE GUI that allows you to run the Prolog procedures and the GSWB and return the result.
@@ -44,6 +44,8 @@ A simple grammar that uses the alternative string-based, flat encoding of glue p
 A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics.
 - `grammars_concept/glue-basic-drt.lfg`:   
 A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT. This grammar requires additional files from the Boxer system (Bos, 2015), which we cannot make available ourselves. 
+- `testfile.lfg`:
+A small testsuite.
 
 # Requirements
 
