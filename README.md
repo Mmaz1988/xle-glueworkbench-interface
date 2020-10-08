@@ -39,9 +39,9 @@ A simple grammar that encodes glue premises in the s-structure
 A simple grammar that makes use of the semantic parser functionality of the GSWB (treat this as a grammar in development)
 - grammars/glue-basic-flat-encoding.lfg:    
 A simple grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
-- grammars_concept/glue-basic-semparser_ND.lfg:
+- grammars_concept/glue-basic-semparser_ND.lfg:    
 A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics.
-- grammars_concept/glue-basic-drt.lfg:
+- grammars_concept/glue-basic-drt.lfg:   
 A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT. This grammar requires additional files from the Boxer system (Bos, 2015), which we cannot make available ourselves. 
 
 # Requirements
