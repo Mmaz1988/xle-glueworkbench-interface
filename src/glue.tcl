@@ -63,7 +63,7 @@ proc create-glue-menus {} {
 
 proc fsdata-to-premises {displaywindow window displaymode position} {
    
-    global defaultTmpDir semParser transferDebug processDRT
+    global defaultTmpDir semParser transferDebug processDRT solutionOnly
     
     #For Sicstus Prolog
     #global defaultPrologFiles
@@ -120,19 +120,42 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     } else {
 	puts "Generating $outputfile"
     }
+
+
+    #Set path of gswb
+    set gswbpath "glueSemWorkbench2.jar"
     
+    #Changing this line is not recommended 
+    set inout "-i $outputfile -o $gswbfile"
+
+    #Set up the command to call the GSWB in accordance with the parameters set in xlerc
+    set gswb exec
+    lappend gswb java
+    lappend gswb -jar
+    lappend gswb $gswbpath
+    set gswb [concat $gswb $inout]
+    if {$semParser == 1} {
+	lappend gswb "-parseSem"
+    } elseif {$semParser == 2} {
+	lappend gswb "-prolog" 
+    }
+    if {$solutionOnly == 1} {
+	lappend gswb "-s"
+    }
+    #Evaluates the command defined above 
+    eval $gswb 
 
     #Run Java Glue prover; jar file relative to execution as above
-    if {$semParser == 0} {
-	eval exec java [list -jar glueSemWorkbench2.jar \
-			    -i $outputfile -o $gswbfile -s]
-    } elseif {$semParser == 1} {
-	eval exec java [list -jar glueSemWorkbench2.jar \
-			    -i $outputfile -o $gswbfile -parseSem -s]
-    } elseif {$semParser == 2} {
-	eval exec java [list -jar glueSemWorkbench2.jar \
-			    -i $outputfile -o $gswbfile -prolog -s]
-    }
+   # if {$semParser == 0} {
+#	eval exec java [list -jar glueSemWorkbench2.jar \
+#			    -i $outputfile -o $gswbfile -s]
+#    } elseif {$semParser == 1} {
+#	eval exec java [list -jar glueSemWorkbench2.jar \
+#			    -i $outputfile -o $gswbfile -parseSem -s]
+#    } elseif {$semParser == 2} {
+#	eval exec java [list -jar glueSemWorkbench2.jar \
+#			    -i $outputfile -o $gswbfile -prolog -s]
+#   }
 
     
     if {$transferDebug == 1} {

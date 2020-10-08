@@ -41,6 +41,9 @@ set defaultTmpDir /tmp
 # Load in Glue specific Tcl/Tk procedures:
 source $defaultGlueTCL
 
+#detailed output
+set solutionOnly 1
+
 # activate semantic parser (0: no parsing / 1: semantic Parsing / 2: Prolog)
 set semParser 0
 
