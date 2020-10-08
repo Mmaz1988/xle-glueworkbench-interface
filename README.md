@@ -1,4 +1,4 @@
-# xle-glueworkbench-interface
+# XLE+Glue
 This code makes it possible to call the Glue semantics workbench (GSWB) from XLE.
 The project contains a sample xle grammar that encodes Glue premises in the f-structure.
 The folder /src contains prolog procedures that translate the Glue premises in an f-structure to strings
@@ -47,7 +47,7 @@ A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce sema
 # Requirements
 
 Download (clone) this repository to your computer. Once all the requirements listed below are met, run the XLE from the repository folder.
-- Glue semantics workbench .jar file. It is part of this repository. Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file. Since the project has been created with IntelliJ, I recommend to use that editor to build the project. 
+- Glue semantics workbench .jar file. It is part of this repository. Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file.
 - The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development of GSWB. GSWB was
 also tested with oracle java 8. Feedback for other platforms is appreciated.
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system.
@@ -59,10 +59,8 @@ also tested with oracle java 8. Feedback for other platforms is appreciated.
 - Download the project to your computer. No specific path is necessary, as long as you have properly set up XLE and SWI-Prolog. This means, you should have added the relevant binaries to your $PATH file. For further assistance refer to the respective documentations.
 
 
-- The project contains a version of the GSWB, however, if you are developing on both the XLE side, as well as the prover side, you can 
-specify the path to your own version of the GSWB in src/glue.tcl, where "Run Java Glue
-prover" is written. Replace glueSemWorkbench2.jar with
-some/directory/glueSemWorkbench2.jar
+- The project contains a version of the GSWB, however, you can 
+specify the path to your own version of the GSWB in src/glue.tcl (see below). 
 
 ```
 #Set path of gswb
