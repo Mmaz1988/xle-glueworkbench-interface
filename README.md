@@ -1,10 +1,10 @@
 # XLE+Glue
 
-This code makes it possible to call the Glue semantics workbench (GSWB) from XLE.
-The project contains a sample xle grammar that encodes Glue premises in the f-structure.
-The folder `/src` contains Prolog procedures that translate the Glue premises in an f-structure to strings
-that are formatted such that they can be read by the Glue semantics workbench. 
-The file `glue.tcl` adds a command to the XLE GUI that allows you to run the Prolog procedures and the Glue semantics workbench and return the result.
+This code makes it possible to call the Glue Semantics Workbench (GSWB) from XLE.
+The folders `/grammars` and `grammars_concept/` contains sample XLE grammars (see the descriptions in "Relevant content").
+The folder `/src` contains Prolog procedures that translate the glue premises in an f-structure to strings
+that are formatted such that they can be read by the GSWB. 
+The file `glue.tcl` adds a command to the XLE GUI that allows you to run the Prolog procedures and the GSWB and return the result.
 
 Confirmed functional* for:
 
@@ -48,7 +48,7 @@ A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce sema
 # Requirements
 
 Download (clone) this repository to your computer. Once all the requirements listed below are met, run the XLE from the repository folder.
-- Glue semantics workbench .jar file. It is part of this repository. Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file.
+- Glue Semantics Workbench (GSWB) .jar file. It is part of this repository. Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file.
 - The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development of GSWB. GSWB was
 also tested with oracle java 8. Feedback for other platforms is appreciated.
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system.
@@ -85,7 +85,7 @@ set processDRT 1
 The output changes to the boxer-style DRS graphical representation. This only works if an appropriate grammar is loaded (`glue-basic-drt.lfg`)!
 
 
-- The `solutionOnly` parameter determines whether the GSWB provides only the solution of the Glue derivation (`1`) or detailed output of the proof (`0`):
+- The `solutionOnly` parameter determines whether the GSWB provides only the solution of the glue derivation (`1`) or detailed output of the proof (`0`):
 
 ```
 #detailed output
@@ -110,7 +110,7 @@ set gswbpath "glueSemWorkbench2.jar"
 
 # Running the system
 
-- The next step is to navigate to the top-level folder of the project (it contains the xlerc file) via some shell (e.g. Terminal for Linux/MacOS, PowerShell for Windows).
+- The next step is to navigate to the top-level folder of the project (it contains the `xlerc` file) via some shell (e.g. Terminal for Linux/MacOS, PowerShell for Windows).
 Then run XLE. The result should look something like the following: 
 
 ```
@@ -144,7 +144,7 @@ If this succeeds you can parse a sentence as usual in XLE.
 parsing {a man yawned}
 2 solutions, 0.000 CPU seconds, 0.000MB max mem, 26 subtrees unified
 ```
-- The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the Glue derivation (including the underlying premises and their compiled counterpart, the agenda, if `solutionOnly` is set to `0`). Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
+- The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the glue derivation (including the underlying premises and their compiled counterpart, the agenda, if `solutionOnly` is set to `0`). Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
 # Command 
 ![alt text](pictures/fstructure.png)
