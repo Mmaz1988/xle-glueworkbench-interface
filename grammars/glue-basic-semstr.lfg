@@ -13,6 +13,8 @@ OPTIMALITYORDER NOGOOD.
 
 ----
 
+"glue-basic-semstr.lfg requires the following settings in xlerc: semParser 0, processDRT 0"
+
 "This grammar is the same as glue-basic.lfg except that meaning constructors appear at s-structure
 rather than f-structure.  This requires a few changes to the GLUE BASIC templates. The names of the arguments
 to the templates (e.g. R) have not been changed, since doing this will obscure the similarities between

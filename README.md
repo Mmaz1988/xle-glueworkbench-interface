@@ -31,13 +31,13 @@ Part of the system that extracts and rewrites glue premises from AVMs into strin
 - `xlerc`:  
 For loading the grammar and setting up environment variables for the semantic system
 - `grammars/glue-basic.lfg`:  
-A simple grammar that encodes glue premises in the f-structure
+A sample grammar that encodes glue premises in the f-structure
 - `grammars/glue-basic-semstr.lfg`:    
-A simple grammar that encodes glue premises in the s-structure
+A sample grammar that encodes glue premises in the s-structure
 - `grammars/glue-basic-semparser.lfg`:   
-A simple grammar that makes use of the semantic parser functionality of the GSWB (treat this as a grammar in development)
+A sample grammar that makes use of the semantic parser functionality of the GSWB
 - `grammars/glue-basic-flat-encoding.lfg`:    
-A simple grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
+A sample grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
 - `grammars_concept/glue-basic-semparser_ND.lfg`:    
 A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics
 - `grammars_concept/glue-basic-drt.lfg`:   
@@ -170,4 +170,4 @@ parsing {a man yawned}
 
 
 # Acknowledgements 
-This project is joint work between Mary Dalrymple and Agnieszka Patejuk (University of Oxford) and Mark-Matthias Zymla (University of Konstanz). The sample grammars are provided by Mary Dalrymple. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
+This project is joint work between Mary Dalrymple and Agnieszka Patejuk (University of Oxford) and Mark-Matthias Zymla (University of Konstanz). The sample grammars are provided by Mary Dalrymple and Agnieszka Patejuk. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.

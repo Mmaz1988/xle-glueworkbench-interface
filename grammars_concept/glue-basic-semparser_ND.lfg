@@ -13,11 +13,11 @@ OPTIMALITYORDER NOGOOD.
 
 ----
 
+"glue-basic-semparser_ND.lfg requires the following settings in xlerc: semParser 1, processDRT 0"
+
 "AVM representations of meaning constructors appear as members of the
 GLUE set at f-structure.  This grammar differs from glue-basic.lfg in
-that meanings are represented as typed terms of the lambda calculus.
-To use this grammar, you must set the value for the variable semParser
-to 1 in your xlerc file."
+that meanings are represented as typed terms of the lambda calculus."
 
 ENGLISH   BASIC   RULES (1.0)
 
