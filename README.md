@@ -77,6 +77,16 @@ set semParser 0
 
 The default output mode (`0`) encodes functional application by concatenating functor and argument and wrapping the argument in parentheses – it is used with these grammars: `glue-basic.lfg`, `glue-basic-semstr.lfg`, `glue-basic-flat-encoding.lfg`. Semantic parsing mode (`1`) makes it possible to use a string-encoding that can be translated into semantic structures by the GSWB – it is used with these grammars: `glue-basic-semparser.lfg`, `glue-basic-semparser_ND.lfg`. Prolog output mode (`2`) uses the Prolog version of lambda-calculus presented in the books by Patrick Blackburn and Johan Bos on computational semantics – it is used with this grammar: `glue-basic-drt.lfg`.
 
+The following table provides a summary of settings required by particular grammars:
+| grammar | `semParser` | `processDRT` |
+| ------------- | ------------- | ------------- |
+| `glue-basic.lfg` | `0` | `0` |
+| `glue-basic-semstr.lfg` | `0` | `0` |
+| `glue-basic-flat-encoding.lfg` | `0` | `0` |
+| `glue-basic-semparser.lfg` | `1` | `0` |
+| `glue-basic-semparser_ND.lfg` | `1` | `0` |
+| `glue-basic-drt.lfg` | `2` | `1` |
+
 - GSWB can process output from grammars that encode meaning in terms of lambda-DRT. To use this option, set the `processDRT` parameter to `1`: 
 
 ```
@@ -85,7 +95,6 @@ set processDRT 1
 ```
 
 The output changes to the boxer-style DRS graphical representation. This only works if an appropriate grammar is loaded (`glue-basic-drt.lfg`)!
-
 
 - The `solutionOnly` parameter determines whether the GSWB provides only the solution of the glue derivation (`1`) or detailed output of the proof (`0`):
 
