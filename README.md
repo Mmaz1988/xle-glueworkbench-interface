@@ -1,7 +1,7 @@
 # XLE+Glue
 
 This code makes it possible to call the Glue Semantics Workbench (GSWB) from XLE.
-The folders `/grammars` and `grammars_concept/` contains some sample XLE grammars (see the descriptions in "Relevant content").
+The folders `/grammars` and `grammars_concept/` contain some sample XLE grammars (see the descriptions in "Relevant content").
 The folder `/src` contains Prolog procedures that translate the glue premises in an f-structure to strings
 that are formatted such that they can be read by the GSWB. 
 The file `glue.tcl` adds a command to the XLE GUI that allows you to run the Prolog procedures and the GSWB and return the result.
@@ -55,7 +55,7 @@ Download (clone) this repository to your computer. Once all the requirements lis
 also tested with oracle java 8. Feedback for other platforms is appreciated.
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system.
 - Xerox Linguistics Environment (XLE). The project is designed to be independent of XLE version, but feedback is welcome.
-- When installing Java and SWI-Prolog make sure, that the respective binaries are added to the `$PATH` variable. This holds for both windows and unix systems.  
+- When installing Java and SWI-Prolog make sure that the respective binaries are added to the `$PATH` variable. This holds for both windows and unix systems.  
 
 # Setting up the system
 
