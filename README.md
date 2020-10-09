@@ -2,8 +2,7 @@
 
 This code makes it possible to call the Glue Semantics Workbench (GSWB) from XLE.
 The folders `/grammars` and `grammars_concept/` contain some sample XLE grammars (see the descriptions in "Relevant content").
-The folder `/src` contains Prolog procedures that translate the glue premises in an f-structure to strings
-that are formatted such that they can be read by the GSWB. 
+The folder `/src` contains Prolog procedures that translate the glue premises in an f-structure to strings that are formatted such that they can be read by the GSWB. 
 The file `glue.tcl` adds a command to the XLE GUI that allows you to run the Prolog procedures and the GSWB and return the result.
 
 Confirmed functional* for:
@@ -14,22 +13,21 @@ Confirmed functional* for:
 - Windows 7
 - Windows 10
 
-
-
 *Given the requirements are met 
+
 
 # Relevant content
 
 - `Manual_for_XLE_Glue_system.pdf`:  
-A detailed description of the system expanding on this README. 
+A detailed description of the system expanding on this README
 - `src/glue.tcl`:  
 Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
 - `src/extract_analysis.pl`:  
-Part of the system that extracts and rewrites glue premises from avms into strings 
+Part of the system that extracts and rewrites glue premises from AVMs into strings 
 - `src/premises.pl`:   
-Part of the system that extracts and rewrites glue premises from avms into strings
+Part of the system that extracts and rewrites glue premises from AVMs into strings
 - `src/transfer_glue_premises.pl`:   
-Part of the system that extracts and rewrites glue premises from avms into strings
+Part of the system that extracts and rewrites glue premises from AVMs into strings
 - `xlerc`:  
 For loading the grammar and setting up environment variables for the semantic system
 - `grammars/glue-basic.lfg`:  
@@ -41,21 +39,22 @@ A simple grammar that makes use of the semantic parser functionality of the GSWB
 - `grammars/glue-basic-flat-encoding.lfg`:    
 A simple grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
 - `grammars_concept/glue-basic-semparser_ND.lfg`:    
-A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics.
+A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics
 - `grammars_concept/glue-basic-drt.lfg`:   
-A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT. This grammar requires additional files from the Boxer system (Bos, 2015), which we cannot make available ourselves. 
+A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT. This grammar requires additional files from the Boxer system (Bos, 2015), which we cannot make available ourselves
 - `testfile.lfg`:
-A small testsuite.
+A small testsuite
+
 
 # Requirements
 
 Download (clone) this repository to your computer. Once all the requirements listed below are met, run the XLE from the repository folder.
 - Glue Semantics Workbench (GSWB) .jar file. It is part of this repository. Else, clone https://github.com/Mmaz1988/GlueSemWorkbench_v2 and produce your own .jar file.
-- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development of GSWB. GSWB was
-also tested with oracle java 8. Feedback for other platforms is appreciated.
+- The GSWB jar file requires Java. [OpenJDK](https://jdk.java.net/13/) is used for development of GSWB. GSWB was also tested with oracle java 8. Feedback for other platforms is appreciated.
 - SWI-Prolog (for translating f-structure premises to premise strings; The latest stable release is recommended; SWI-Prolog 6.x and older are not compatible with the present system.
 - Xerox Linguistics Environment (XLE). The project is designed to be independent of XLE version, but feedback is welcome.
 - When installing Java and SWI-Prolog make sure that the respective binaries are added to the `$PATH` variable. This holds for both windows and unix systems.  
+
 
 # Setting up the system
 
@@ -119,6 +118,7 @@ specify the path to your own version of the GSWB in `src/glue.tcl` at your own r
 set gswbpath "glueSemWorkbench2.jar"
 ```
 
+
 # Running the system
 
 - The next step is to navigate to the top-level folder of the project (it contains the `xlerc` file) via some shell (e.g. Terminal for Linux/MacOS, PowerShell for Windows).
@@ -157,8 +157,10 @@ parsing {a man yawned}
 ```
 - The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the glue derivation (including the underlying premises and their compiled counterpart, the agenda, if `solutionOnly` is set to `0`). Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
+
 # Command 
 ![alt text](pictures/fstructure.png)
+
 
 # Expected output
 - The default output (`set solutionOnly 1`) consists only of the solution given by the prover.
