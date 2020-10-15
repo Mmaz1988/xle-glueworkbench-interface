@@ -34,6 +34,16 @@ Part of the system that extracts and rewrites glue premises from AVMs into strin
 Part of the system that extracts and rewrites glue premises from AVMs into strings
 - `src/transfer_glue_premises.pl`:   
 Part of the system that extracts and rewrites glue premises from AVMs into strings
+- `src/boxer/alphaConversionDRT.pl`:
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/betaConversionDRT.pl`:
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/errors.pl`:   
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/mergeDRT.pl`:   
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/printDrs.pl`:   
+Part of the Boxer system used to provide DRT mode
 - `elisp/backquote-region.el`:  
 An emacs module aimed at making it easier to format strings for use with XLE+Glue (see the description in the manual)
 - `xlerc`:  
@@ -49,7 +59,7 @@ A sample grammar that uses the alternative string-based, flat encoding of glue p
 - `grammars_concept/glue-basic-semparser_ND.lfg`:    
 A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics
 - `grammars_concept/glue-basic-drt.lfg`:   
-A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT. This grammar requires additional files from the Boxer system (Bos, 2015), which we cannot make available ourselves
+A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT.
 - `testfile.lfg`:
 A small testsuite
 
