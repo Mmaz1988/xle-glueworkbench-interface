@@ -1,9 +1,22 @@
-#.tcl file -- sets up XLE/Glue interface
-#Author: Mark-Matthias Zymla
-#Date: 07.11.2019
+#    Copyright (C) 2019–2020 Mark-Matthias Zymla
+#
+#    This file is part of XLE+Glue (https://github.com/Mmaz1988/xle-glueworkbench-interface).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ####################################################################
-# Set up Glue menue
+# Set up Glue menu
 ####################################################################
 
 proc init-glue {{compiled 0}} {
@@ -12,7 +25,7 @@ proc init-glue {{compiled 0}} {
 
     #Create parser
     create-parser $defaultGlueParser
-    #Add Glue menues to XLE GUI. Specified below. 
+    #Add Glue menus to XLE GUI. Specified below. 
     create-glue-menus
 
     #COmment in when working with Sicstus-Prolog; not recommended    

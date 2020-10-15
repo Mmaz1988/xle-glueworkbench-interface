@@ -16,8 +16,14 @@ Confirmed functional* for:
 *Given the requirements are met 
 
 
+# Licence information
+
+XLE+Glue is distributed under the terms of the GNU General Public License version 3 (http://www.gnu.org/licenses/).
+
 # Relevant content
 
+- `gpl-3.0.txt`:
+A copy of GNU GPL 3 licence
 - `Manual_for_XLE_Glue_system.pdf`:  
 A detailed description of the system expanding on this README
 - `src/glue.tcl`:  
@@ -28,6 +34,8 @@ Part of the system that extracts and rewrites glue premises from AVMs into strin
 Part of the system that extracts and rewrites glue premises from AVMs into strings
 - `src/transfer_glue_premises.pl`:   
 Part of the system that extracts and rewrites glue premises from AVMs into strings
+- `elisp/backquote-region.el`:  
+An emacs module aimed at making it easier to format strings for use with XLE+Glue (see the description in the manual)
 - `xlerc`:  
 For loading the grammar and setting up environment variables for the semantic system
 - `grammars/glue-basic.lfg`:  
