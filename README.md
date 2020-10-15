@@ -181,11 +181,12 @@ parsing {a man yawned}
 
 
 # Expected output
-- The default output (`set solutionOnly 1`) consists only of the solution given by the prover.
+- The default output (`set solutionOnly 1`) consists only of the solution given by the prover:
 ![alt text](pictures/semantics2.png)
-- The detailed ouput (`set solutionOnly 0`) looks like this.
+- The detailed ouput (`set solutionOnly 0`) looks like this:
 ![alt text](pictures/semantics.png)
-
+- The DRT-mode output looks like this:
+![alt text](pictures/semantics3.png)
 
 # Acknowledgements 
 This project is joint work between Mary Dalrymple and Agnieszka Patejuk (University of Oxford) and Mark-Matthias Zymla (University of Konstanz). The sample grammars are provided by Mary Dalrymple and Agnieszka Patejuk. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
