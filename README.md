@@ -171,7 +171,7 @@ If this succeeds you can parse a sentence as usual in XLE.
 ```
 % parse "a man yawned"
 parsing {a man yawned}
-2 solutions, 0.000 CPU seconds, 0.000MB max mem, 26 subtrees unified
+1 solutions, 0.003 CPU seconds, 0.131MB max mem, 29 subtrees unified
 ```
 - The f-structure window "Commands" menu should now contain an entry called "Semantics". Clicking on this button should generate a window which contains the result of the glue derivation (including the underlying premises and their compiled counterpart, the agenda, if `solutionOnly` is set to `0`). Note that the example below uses a simple string to represent the semantic side of a glue premise. Semantic parsing is possible but requires a specific string encoding. More information can be found in the manual. 
 
