@@ -21,6 +21,8 @@
     along with this module; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
     02111-1307 USA
+    
+    Small modifications 2018-2020 by Matthew Gotham, noted in comments
 	
 *************************************************************************/
 
@@ -152,19 +154,19 @@ alphaConvertCondition(or(B1,B2),Var,Ptr1-Ptr3,or(B3,B4)):- !,
    alphaConvertDRS(B1,Var-_,Ptr1-Ptr2,B3),
    alphaConvertDRS(B2,Var-_,Ptr2-Ptr3,B4).
 
-alphaConvertCondition(pred(Sym,Arg1),Var,Ptr-Ptr,pred(Sym,Arg2)):- !,
+alphaConvertCondition(pred(Sym,Arg1),Var,Ptr-Ptr,pred(Sym,Arg2)):- !, % MG modified 2018
    alphaConvertVar(Arg1,Var,Arg2).
 
-alphaConvertCondition(pred(Arg1,Sym,Type,Sense),Var,Ptr-Ptr,pred(Arg2,Sym,Type,Sense)):- !,
-   alphaConvertVar(Arg1,Var,Arg2).
-
-alphaConvertCondition(rel(Sym,Arg1,Arg2),Var,Ptr-Ptr,rel(Sym,Arg3,Arg4)):- !, %MG changed order
+alphaConvertCondition(rel(Sym,Arg1,Arg2),Var,Ptr-Ptr,rel(Sym,Arg3,Arg4)):- !, % MG modified 2018
    alphaConvertVar(Arg1,Var,Arg3),
    alphaConvertVar(Arg2,Var,Arg4).
 
-alphaConvertCondition(rel(Arg1,Arg2,Sym,Sense),Var,Ptr-Ptr,rel(Arg3,Arg4,Sym,Sense)):- !,
-   alphaConvertVar(Arg1,Var,Arg3),
-   alphaConvertVar(Arg2,Var,Arg4).
+alphaConvertCondition(rel(Sym,Arg1,Arg2,Arg3),Var,Ptr-Ptr,rel(Sym,Arg4,Arg5,Arg6)):- !, %MG added 2020
+   alphaConvertVar(Arg1,Var,Arg4),
+   alphaConvertVar(Arg2,Var,Arg5),
+   alphaConvertVar(Arg3,Var,Arg6).
+
+% The above modify previous definitions of pred/2, pred/4, rel/3 and rel/4, which had a differen syntax
 
 alphaConvertCondition(role(Arg1,Arg2,Sym,Dir),Var,Ptr-Ptr,role(Arg3,Arg4,Sym,Dir)):- !,
    alphaConvertVar(Arg1,Var,Arg3),
@@ -177,21 +179,19 @@ alphaConvertCondition(comp(X1,X2,CMP),Vars,Ptr-Ptr,comp(Y1,Y2,CMP)):- !,
    alphaConvertVar(X1,Vars,Y1),
    alphaConvertVar(X2,Vars,Y2).
 
-alphaConvertCondition(eq(X1,X2),Vars,Ptr-Ptr,eq(Y1,Y2)):- !,	% MG hackage
-   alphaConvertVar(X1,Vars,Y1),									%
-   alphaConvertVar(X2,Vars,Y2).									%
-
-alphaConvertCondition(leq(X1,X2),Vars,Ptr-Ptr,leq(Y1,Y2)):- !,	%
-   alphaConvertVar(X1,Vars,Y1),									%
-   alphaConvertVar(X2,Vars,Y2).									%
-
-alphaConvertCondition(sub(X1,X2),Vars,Ptr-Ptr,sub(Y1,Y2)):- !,	%
-   alphaConvertVar(X1,Vars,Y1),									%
-   alphaConvertVar(X2,Vars,Y2).									%
-
-/*alphaConvertCondition(eq(X1,X2),Vars,Ptr-Ptr,comp(Y1,Y2,'EQU')):- !, % MG deleted
+alphaConvertCondition(eq(X1,X2),Vars,Ptr-Ptr,eq(Y1,Y2)):- !, % MG modified 2018
    alphaConvertVar(X1,Vars,Y1),
-   alphaConvertVar(X2,Vars,Y2). */
+   alphaConvertVar(X2,Vars,Y2).
+   
+alphaConvertCondition(leq(X1,X2),Vars,Ptr-Ptr,leq(Y1,Y2)):- !, % MG modified 2018
+   alphaConvertVar(X1,Vars,Y1),
+   alphaConvertVar(X2,Vars,Y2).
+
+alphaConvertCondition(sub(X1,X2),Vars,Ptr-Ptr,sub(Y1,Y2)):- !, % MG modified 2018
+   alphaConvertVar(X1,Vars,Y1),
+   alphaConvertVar(X2,Vars,Y2).
+
+% Replace earlier definitions using comp/3
 
 alphaConvertCondition(U,_,_,_):- !,
    warning('Unknown condition: ~p',[U]), fail.

@@ -22,6 +22,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
     02111-1307 USA
 	
+    Small modifications 2018-2020 by Matthew Gotham, noted in comments
+
 *************************************************************************/
 
 :- module(mergeDRT,[mergeDrs/2]).
@@ -219,16 +221,16 @@ mergeConds([prop(X,B1)|C1],[prop(X,B2)|C2]):- !,
    mergeDrs(B1,B2),
    mergeConds(C1,C2).
 
-mergeConds([pred(A,B)|C1],[pred(A,B)|C2]):- !,
-   mergeConds(C1,C2).
-
-mergeConds([pred(A,B,C,D)|C1],[pred(A,B,C,D)|C2]):- !,
+/*mergeConds([pred(A,B,C,D)|C1],[pred(A,B,C,D)|C2]):- !,    MG commented out 2020
    mergeConds(C1,C2).
 
 mergeConds([rel(A,B,C,D)|C1],[rel(A,B,C,D)|C2]):- !,
-   mergeConds(C1,C2).
+   mergeConds(C1,C2).*/
 
 mergeConds([rel(A,B,C)|C1],[rel(A,B,C)|C2]):- !,
+   mergeConds(C1,C2).
+
+mergeConds([rel(A,B,C,D)|C1],[role(A,B,C,D)|C2]):- !,   %MG added 2020
    mergeConds(C1,C2).
 
 mergeConds([role(A,B,C,D)|C1],[role(A,B,C,D)|C2]):- !,
