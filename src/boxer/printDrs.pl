@@ -189,15 +189,37 @@ formatConds([duplex(Det,Drs1,Var,Drs2)|Rest],L1-L2,N0-N4):-!, % MG added 2020
    Length is N1 + N2 + Len + 5,
    (Length > N3, !, N4 = Length; N4 = N3).
 
-formatConds([not(Drs)|Rest],L1-L2,N0-N3):-!,
+formatConds([not(Drs)|Rest],L1-L2,N0-N3):-!, % MG modified 2020
    formatConds(Rest,L1-Lines,N0-N1),
    formatDrs(Drs,[A,B,C,D|Lines1],N2),
-   combLinesConds2([],Lines1,Lines2,5,''),
-   append([[124,32,32,32,32,32|A],
-                [124,32,32,32,32,32|B],
-                [124,32,95,95,32,32|C],
-                [124,32,32,32,124,32|D]|Lines2],Lines,L2),
-   Length is N2 + 8,
+   combLinesConds2([],Lines1,Lines2,3,''),
+   append([[124,32,32,32|A],
+                [124,32,32,32|B],
+                [124,32,32,32|C],
+                [124,32,172,32|D]|Lines2],Lines,L2), % ¬ is 172, ~ is 126
+   Length is N2 + 6,
+   (Length > N1, !, N3 = Length; N3 = N1).
+
+formatConds([nec(Drs)|Rest],L1-L2,N0-N3):-!, % MG added 2020
+   formatConds(Rest,L1-Lines,N0-N1),
+   formatDrs(Drs,[A,B,C,D|Lines1],N2),
+   combLinesConds2([],Lines1,Lines2,4,''),
+   append([[124,32,32,32,32|A],
+                [124,32,32,32,32|B],
+                [124,32,32,32,32|C],
+                [124,32,91,93,32|D]|Lines2],Lines,L2),
+   Length is N2 + 7,
+   (Length > N1, !, N3 = Length; N3 = N1).
+
+formatConds([pos(Drs)|Rest],L1-L2,N0-N3):-!, % MG added 2020
+   formatConds(Rest,L1-Lines,N0-N1),
+   formatDrs(Drs,[A,B,C,D|Lines1],N2),
+   combLinesConds2([],Lines1,Lines2,4,''),
+   append([[124,32,32,32,32|A],
+                [124,32,32,32,32|B],
+                [124,32,32,32,32|C],
+                [124,32,60,62,32|D]|Lines2],Lines,L2),
+   Length is N2 + 7,
    (Length > N1, !, N3 = Length; N3 = N1).
 
 formatConds([prop(Marker,Drs)|Rest],L1-L2,N0-N3):-!, % MG added 2018
@@ -216,7 +238,7 @@ formatConds([eq(A,B)|Rest],In-[[124,32|Line]|Out],N0-N2):-!,
    formatConds(Rest,In-Out,N0-N1),
    makeConstant(A,L1),
    makeConstant(B,L2),
-   append(L1,[32,61,32|L2],Line),								% =
+   append(L1,[32,61,32|L2],Line), % =
    length([_,_,_|Line],Length),
    (Length > N1, !, N2 is Length; N2 = N1).
 
@@ -232,8 +254,8 @@ formatConds([sub(A,B)|Rest],In-[[124,32|Line]|Out],N0-N2):-!, %  MG added 2018, 
    formatConds(Rest,In-Out,N0-N1),
    makeConstant(A,L1),
    makeConstant(B,L2),
-   append(L1,[32,8838,32|L2],Line),% Unicode decimal, C is 67
-   length([_,_,_|Line],Length),
+   append(L1,[32,8838,32|L2],Line), % Unicode decimal, C is 67
+   length([_,_,_,_|Line],Length),
    (Length > N1, !, N2 is Length; N2 = N1).
 
 formatConds([Basic|Rest],In-[[124,32|Line]|Out],N0-N2):-
