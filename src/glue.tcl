@@ -151,13 +151,18 @@ proc fsdata-to-premises {displaywindow window displaymode position} {
     set gswb [concat $gswb $inout]
     if {$semParser == 1} {
 	lappend gswb "-parseSem"
+	lappend gswb "-inputStyle"
+	lappend gswb  "0"
     } elseif {$semParser == 2} {
-	lappend gswb "-prolog" 
+	lappend gswb "-inputStyle" 
+	lappend gswb "1" 
     }
     if {$solutionOnly == 1} {
 	lappend gswb "-s"
     }
-    #Evaluates the command defined above 
+
+
+    #Evaluates the command defined above
     eval $gswb 
 
     #Run Java Glue prover; jar file relative to execution as above
