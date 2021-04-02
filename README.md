@@ -144,8 +144,7 @@ parsing {a man yawned}
 - The DRT-mode output looks like this:
 ![alt text](pictures/semantics3.png)
 
-# Relevant content
-
+# Repository contents
 - `gpl-3.0.txt`:
 A copy of GNU GPL 3 licence
 - `Manual_for_XLE_Glue_system.pdf`:  
