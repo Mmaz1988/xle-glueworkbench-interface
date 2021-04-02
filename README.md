@@ -20,50 +20,6 @@ Confirmed functional* for:
 
 XLE+Glue is distributed under the terms of the GNU General Public License version 3 (http://www.gnu.org/licenses/).
 
-# Relevant content
-
-- `gpl-3.0.txt`:
-A copy of GNU GPL 3 licence
-- `Manual_for_XLE_Glue_system.pdf`:  
-A detailed description of the system expanding on this README
-- `src/glue.tcl`:  
-Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
-- `src/extract_analysis.pl`:  
-Part of the system that extracts and rewrites glue premises from AVMs into strings 
-- `src/premises.pl`:   
-Part of the system that extracts and rewrites glue premises from AVMs into strings
-- `src/transfer_glue_premises.pl`:   
-Part of the system that extracts and rewrites glue premises from AVMs into strings
-- `src/boxer/alphaConversionDRT.pl`:
-Part of the Boxer system used to provide DRT mode
-- `src/boxer/betaConversionDRT.pl`:
-Part of the Boxer system used to provide DRT mode
-- `src/boxer/errors.pl`:   
-Part of the Boxer system used to provide DRT mode
-- `src/boxer/mergeDRT.pl`:   
-Part of the Boxer system used to provide DRT mode
-- `src/boxer/printDrs.pl`:   
-Part of the Boxer system used to provide DRT mode
-- `elisp/backquote-region.el`:  
-An emacs module aimed at making it easier to format strings for use with XLE+Glue (see the description in the manual)
-- `xlerc`:  
-For loading the grammar and setting up environment variables for the semantic system
-- `grammars/glue-basic.lfg`:  
-A sample grammar that encodes glue premises in the f-structure
-- `grammars/glue-basic-semstr.lfg`:    
-A sample grammar that encodes glue premises in the s-structure
-- `grammars/glue-basic-semparser.lfg`:   
-A sample grammar that makes use of the semantic parser functionality of the GSWB
-- `grammars/glue-basic-flat-encoding.lfg`:    
-A sample grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
-- `grammars_concept/glue-basic-semparser_ND.lfg`:    
-A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics
-- `grammars_concept/glue-basic-drt.lfg`:   
-A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT.
-- `testfile.lfg`:
-A small testsuite
-
-
 # Requirements
 
 Download (clone) this repository to your computer. Once all the requirements listed below are met, run the XLE from the repository folder.
@@ -187,6 +143,50 @@ parsing {a man yawned}
 ![alt text](pictures/semantics.png)
 - The DRT-mode output looks like this:
 ![alt text](pictures/semantics3.png)
+
+# Relevant content
+
+- `gpl-3.0.txt`:
+A copy of GNU GPL 3 licence
+- `Manual_for_XLE_Glue_system.pdf`:  
+A detailed description of the system expanding on this README
+- `src/glue.tcl`:  
+Adds XLE+Glue functionality to XLE; serves as interface for XLE, Prolog and Java 
+- `src/extract_analysis.pl`:  
+Part of the system that extracts and rewrites glue premises from AVMs into strings 
+- `src/premises.pl`:   
+Part of the system that extracts and rewrites glue premises from AVMs into strings
+- `src/transfer_glue_premises.pl`:   
+Part of the system that extracts and rewrites glue premises from AVMs into strings
+- `src/boxer/alphaConversionDRT.pl`:
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/betaConversionDRT.pl`:
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/errors.pl`:   
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/mergeDRT.pl`:   
+Part of the Boxer system used to provide DRT mode
+- `src/boxer/printDrs.pl`:   
+Part of the Boxer system used to provide DRT mode
+- `elisp/backquote-region.el`:  
+An emacs module aimed at making it easier to format strings for use with XLE+Glue (see the description in the manual)
+- `xlerc`:  
+For loading the grammar and setting up environment variables for the semantic system
+- `grammars/glue-basic.lfg`:  
+A sample grammar that encodes glue premises in the f-structure
+- `grammars/glue-basic-semstr.lfg`:    
+A sample grammar that encodes glue premises in the s-structure
+- `grammars/glue-basic-semparser.lfg`:   
+A sample grammar that makes use of the semantic parser functionality of the GSWB
+- `grammars/glue-basic-flat-encoding.lfg`:    
+A sample grammar that uses the alternative string-based, flat encoding of glue premises (in the f-structure)
+- `grammars_concept/glue-basic-semparser_ND.lfg`:    
+A proof-of-concept grammar that uses the semantic parser functionality of the GSWB to derive semantic representations based on Neo-Davidsonian event semantics
+- `grammars_concept/glue-basic-drt.lfg`:   
+A proof-of-concept grammar that uses the Prolog-mode of the GSWB to produce semantic representations based on Boxer-style lambda-DRT.
+- `testfile.lfg`:
+A small testsuite
+
 
 # Acknowledgements 
 This project is joint work between Mary Dalrymple and Agnieszka Patejuk (University of Oxford) and Mark-Matthias Zymla (University of Konstanz). The sample grammars are provided by Mary Dalrymple and Agnieszka Patejuk. Else, the individual files specify the responsible author. The GSWB is currently maintained by Mark-Matthias Zymla.
