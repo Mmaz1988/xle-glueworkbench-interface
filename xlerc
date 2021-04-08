@@ -46,7 +46,7 @@ set defaultGlueTCL [relpath src/glue.tcl]
 #lappend defaultPrologFiles [relpath src/transfer_glue_premises]
 
 #Here the grammar is loaded 
-set defaultGlueParser [relpath grammars/glue-basic.lfg]
+set defaultGlueParser [relpath grammars/glue-basic-semparser.lfg]
 
 # Specify the tmp directory for intermediate files
 set defaultTmpDir /tmp
@@ -55,10 +55,10 @@ set defaultTmpDir /tmp
 source $defaultGlueTCL
 
 #detailed output
-set solutionOnly 1
+set solutionOnly 0
 
 # activate semantic parser (0: no parsing / 1: semantic Parsing / 2: Prolog)
-set semParser 0
+set semParser 1
 
 # activate DRT mode (1/0); requires Prolog parsing! 
 set processDRT 0
